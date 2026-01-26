@@ -1,0 +1,1103 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Itens - NEXUS</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* HEADER NEXUS */
+        .header-nexus {
+            display: flex;
+            align-items: stretch;
+            background: #e6e6e6;
+            border: 3px solid #000;
+            margin-bottom: 30px;
+        }
+
+        .nexus-box {
+            background: linear-gradient(180deg, #8b1a1a 0%, #5a0f0f 100%);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 3px solid #000;
+            min-width: 200px;
+        }
+
+        .nexus-logo {
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .nexus-logo .x {
+            color: #ff0000;
+            font-size: 48px;
+        }
+
+        .titulo-principal {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-style: italic;
+            font-weight: bold;
+            color: #000;
+            padding: 20px;
+        }
+
+        .nexus-box-right {
+            background: linear-gradient(180deg, #8b1a1a 0%, #5a0f0f 100%);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 3px solid #000;
+            min-width: 200px;
+        }
+
+        /* FORMULÁRIO */
+        .form-box {
+            background: #2a2a2a;
+            padding: 30px;
+            border: 3px solid #444;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .form-box h3 {
+            color: #ff3b3b;
+            margin-bottom: 20px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #d4a8a8;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a1a;
+            color: #fff;
+            border: 2px solid #444;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #666;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #ff3b3b;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .col-full {
+            grid-column: 1 / -1;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff3b3b 0%, #c41f1f 100%);
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 59, 59, 0.4);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #e63030 0%, #a81818 100%);
+            box-shadow: 0 6px 20px rgba(255, 59, 59, 0.6);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* LISTA DE ITENS */
+        .itens-adicionados {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 6px;
+            border: 2px solid #444;
+            margin-bottom: 20px;
+            min-height: 80px;
+        }
+
+        .itens-adicionados h4 {
+            color: #ff3b3b;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .item-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 5px;
+            border-left: 4px solid #ff3b3b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+
+        .item-tag:hover {
+            transform: translateX(3px);
+            box-shadow: 0 4px 12px rgba(255,59,59,0.3);
+        }
+
+        .item-tag-nome {
+            color: #fff;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .item-tag-qtd {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: #000;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .item-tag-remove {
+            background: linear-gradient(135deg, #ff3b3b 0%, #c41f1f 100%);
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.3s;
+            min-width: 28px;
+            max-width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-tag-remove:hover {
+            background: linear-gradient(135deg, #e63030 0%, #a81818 100%);
+            transform: scale(1.1);
+        }
+
+        .empty-itens {
+            color: #666;
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* RESULTADO */
+        .result-box {
+            background: #e6e6e6;
+            border: 3px solid #000;
+            padding: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-header {
+            background: #000;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        .result-content {
+            padding: 30px;
+            color: #000;
+        }
+
+        .solicitacao-texto {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 6px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin-bottom: 15px;
+        }
+
+        .comandos-box {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .comando-item {
+            color: #4ade80;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #2a2a2a;
+            border-radius: 4px;
+            border-left: 4px solid #4ade80;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .comando-item:hover {
+            background: #333;
+            transform: translateX(3px);
+        }
+
+        .btn-copy {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            margin-bottom: 10px;
+        }
+
+        .btn-copy:hover {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* HISTÓRICO */
+        .historico-box {
+            background: #2a2a2a;
+            padding: 25px;
+            border: 3px solid #444;
+            border-radius: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .historico-box h3 {
+            color: #ff3b3b;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .historico-item {
+            background: #1a1a1a;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #ff3b3b;
+        }
+
+        .historico-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .historico-item-id {
+            font-weight: 700;
+            color: #ff3b3b;
+            font-size: 14px;
+        }
+
+        .historico-item-data {
+            font-size: 10px;
+            color: #888;
+        }
+
+        .historico-item-motivo {
+            color: #fff;
+            margin-bottom: 8px;
+            font-size: 12px;
+            padding: 6px 8px;
+            background: #0a0a0a;
+            border-radius: 4px;
+        }
+
+        .historico-item-itens {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+            padding: 8px;
+            background: #0a0a0a;
+            border-radius: 4px;
+        }
+
+        .historico-item-tag {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            border: 1px solid #ff3b3b;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .btn-carregar-historico {
+            background: linear-gradient(135deg, #ff3b3b 0%, #c41f1f 100%);
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-carregar-historico:hover {
+            background: linear-gradient(135deg, #e63030 0%, #a81818 100%);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header-nexus {
+                flex-direction: column;
+            }
+
+            .nexus-box, .nexus-box-right {
+                border-right: none;
+                border-left: none;
+                border-bottom: 3px solid #000;
+                min-width: 100%;
+            }
+
+            .nexus-box-right {
+                border-bottom: none;
+                border-top: 3px solid #000;
+            }
+
+            .titulo-principal {
+                font-size: 24px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- HEADER -->
+    <div class="header-nexus">
+        <div class="nexus-box">
+            <div class="nexus-logo">NE<span class="x">X</span>US</div>
+        </div>
+        <div class="titulo-principal">
+            Spawn/Devs de Itens
+        </div>
+        <div class="nexus-box-right">
+            <div class="nexus-logo">NE<span class="x">X</span>US</div>
+        </div>
+    </div>
+
+    <!-- FORMULÁRIO -->
+    <div class="form-box">
+        <h3>📝 Criar Solicitação de Devolução</h3>
+        
+        <label>ID do Player:</label>
+        <input type="text" id="inputPlayerId" placeholder="Digite o ID do player">
+
+        <label>Motivo da Solicitação:</label>
+        <textarea id="inputMotivo" placeholder="Ex: Perdeu itens por bug, ganhou ação marcada, etc."></textarea>
+
+        <label>Categoria do Item:</label>
+        <select id="selectCategoria" onchange="carregarItens()">
+            <option value="">-- Selecione uma categoria --</option>
+            <option value="armas_brancas">Armas Brancas</option>
+            <option value="armas_policia">Armas/Munições da Polícia</option>
+            <option value="armas_bandidos">Armas/Munições dos Bandidos</option>
+            <option value="armas_extras">Armas/Munições Extras</option>
+            <option value="lojinha">Itens da Lojinha</option>
+            <option value="fabricacao">Itens de Fabricação</option>
+            <option value="drogas">Itens de Drogas</option>
+            <option value="diversos">Itens Diversos</option>
+            <option value="novas_armas">Novas Armas</option>
+        </select>
+
+        <div class="row">
+            <div>
+                <label>🔍 Pesquisar Item:</label>
+                <input type="text" id="inputPesquisa" placeholder="Digite para buscar em todas as categorias...">
+            </div>
+            <div>
+                <label>Item:</label>
+                <select id="selectItem">
+                    <option value="">-- Selecione um item --</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row" style="align-items: end;">
+            <div></div>
+            <div>
+                <label>Quantidade:</label>
+                <input type="number" id="inputQuantidade" placeholder="1" min="1" value="1">
+            </div>
+        </div>
+
+        <button onclick="adicionarItem()">➕ Adicionar Item</button>
+    </div>
+
+    <!-- ITENS ADICIONADOS -->
+    <div class="form-box" style="padding: 20px;">
+        <div class="itens-adicionados" id="itensAdicionados">
+            <h4>📦 Itens Adicionados</h4>
+            <div class="empty-itens" id="emptyItens">Nenhum item adicionado ainda</div>
+            <div id="listaItens"></div>
+        </div>
+
+        <button onclick="gerarSolicitacao()" id="btnGerar" disabled>🎯 Gerar Solicitação</button>
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="result-box" id="resultBox">
+        <div class="result-header">📋 SOLICITAÇÃO GERADA</div>
+        <div class="result-content">
+            <div class="solicitacao-texto" id="solicitacaoTexto"></div>
+            <button class="btn-copy" onclick="copiarSolicitacao()">📋 Copiar Solicitação Completa</button>
+
+            <div class="comandos-box">
+                <h4 style="color: #4ade80; margin-bottom: 15px; text-align: center;">⚡ COMANDOS INDIVIDUAIS</h4>
+                <div id="comandosLista"></div>
+            </div>
+            <button class="btn-copy" onclick="copiarTodosComandos()">📋 Copiar Todos os Comandos</button>
+
+            <div class="button-group">
+                <button onclick="novaSolicitacao()">🔄 Nova Solicitação</button>
+                <button onclick="editarSolicitacao()">✏️ Editar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div class="historico-box">
+        <h3>📊 Histórico de Solicitações</h3>
+        <div id="historicoLista">
+            <div class="empty-itens">Nenhuma solicitação realizada ainda</div>
+        </div>
+        <button onclick="limparHistorico()" style="margin-top: 15px;">🗑️ Limpar Histórico</button>
+    </div>
+</div>
+
+<script>
+const categorias = {
+    armas_brancas: [
+        { nome: "TACO DE BEISEBOL", spawn: "wbody|WEAPON_BAT" },
+        { nome: "GARRAFA QUEBRADA", spawn: "wbody|WEAPON_BOTTLE" },
+        { nome: "PÉ DE CABRA", spawn: "wbody|WEAPON_CROWBAR" },
+        { nome: "LANTERNA", spawn: "wbody|WEAPON_FLASHLIGHT" },
+        { nome: "TACO DE GOLFE", spawn: "wbody|WEAPON_GOLFCLUB" },
+        { nome: "MARTELO", spawn: "wbody|WEAPON_HAMMER" },
+        { nome: "SOCO INGLÊS", spawn: "wbody|WEAPON_KNUCKLE" },
+        { nome: "FACA", spawn: "wbody|WEAPON_KNIFE" },
+        { nome: "MACHETE", spawn: "wbody|WEAPON_MACHETE" },
+        { nome: "CANIVETE", spawn: "wbody|WEAPON_SWITCHBLADE" },
+        { nome: "CASSETETE", spawn: "wbody|WEAPON_NIGHTSTICK" },
+        { nome: "CHAVE INGLESA", spawn: "wbody|WEAPON_WRENCH" },
+        { nome: "MACHADO DE BATALHA", spawn: "wbody|WEAPON_BATTLEAXE" },
+        { nome: "MACHADO DE PEDRA", spawn: "wbody|WEAPON_STONE_HATCHET" },
+        { nome: "TACO DE SINUCA", spawn: "wbody|WEAPON_POOLCUE" },
+        { nome: "SINALIZADOR", spawn: "wbody|WEAPON_FLAREGUN" },
+        { nome: "ADAGA", spawn: "wbody|WEAPON_DAGGER" },
+        { nome: "PARAQUEDAS", spawn: "wbody|GADGET_PARACHUTE" },
+        { nome: "KATANA", spawn: "wbody|WEAPON_KATANA" },
+        { nome: "KATANA FLAMEJANTE", spawn: "wbody|WEAPON_THERMAL" },
+        { nome: "KATANA GÉLIDA", spawn: "wbody|WEAPON_FROST" },
+        { nome: "KARAMBIT", spawn: "wbody|WEAPON_KARAMBIT" }
+    ],
+    armas_policia: [
+        { nome: "M19", spawn: "wbody|WEAPON_PISTOL" },
+        { nome: "MUNIÇÃO DA M19", spawn: "wammo|WEAPON_PISTOL" },
+        { nome: "HEAVY", spawn: "wbody|WEAPON_HEAVYPISTOL" },
+        { nome: "MUNIÇÃO DA HEAVY", spawn: "wammo|WEAPON_HEAVYPISTOL" },
+        { nome: "REMINGTON 97", spawn: "wbody|WEAPON_PUMPSHOTGUN_MK2" },
+        { nome: "MUNIÇÃO DA REMINGTON 97", spawn: "wammo|WEAPON_PUMPSHOTGUN_MK2" },
+        { nome: "SPECIAL CARBINE MK2", spawn: "wbody|WEAPON_SPECIALCARBINE_MK2" },
+        { nome: "MUNIÇÃO DA SPECIAL CARBINE MK2", spawn: "wammo|WEAPON_SPECIALCARBINE_MK2" },
+        { nome: "TASER", spawn: "wbody|WEAPON_STUNGUN" }
+    ],
+    armas_bandidos: [
+        { nome: "FIVE SEVEN", spawn: "wbody|WEAPON_PISTOL_MK2" },
+        { nome: "MUNIÇÃO DA FIVE SEVEN", spawn: "wammo|WEAPON_PISTOL_MK2" },
+        { nome: "HK", spawn: "wbody|WEAPON_SNSPISTOL" },
+        { nome: "MUNIÇÃO DA HK", spawn: "wammo|WEAPON_SNSPISTOL" },
+        { nome: "MAGNUM 44", spawn: "wbody|WEAPON_REVOLVER" },
+        { nome: "MUNIÇÃO DA MAGNUM 44", spawn: "wammo|WEAPON_REVOLVER" },
+        { nome: "TEC-9", spawn: "wbody|WEAPON_MACHINEPISTOL" },
+        { nome: "MUNIÇÃO DA TEC-9", spawn: "wammo|WEAPON_MACHINEPISTOL" },
+        { nome: "MTAR-21", spawn: "wbody|WEAPON_ASSAULTSMG" },
+        { nome: "MUNIÇÃO DA MTAR-21", spawn: "wammo|WEAPON_ASSAULTSMG" },
+        { nome: "AK47", spawn: "wbody|WEAPON_ASSAULTRIFLE" },
+        { nome: "MUNIÇÃO DA AK47", spawn: "wammo|WEAPON_ASSAULTRIFLE" },
+        { nome: "M4 SPEC", spawn: "wbody|WEAPON_SPECIALCARBINE" },
+        { nome: "MUNIÇÃO DA M4 SPEC", spawn: "wammo|WEAPON_SPECIALCARBINE" },
+        { nome: "THOMPSON", spawn: "wbody|WEAPON_GUSENBERG" },
+        { nome: "MUNIÇÃO DA THOMPSON", spawn: "wammo|WEAPON_GUSENBERG" }
+    ],
+    armas_extras: [
+        { nome: "SNIPER", spawn: "wbody|WEAPON_HEAVYSNIPER_MK2" },
+        { nome: "MUNIÇÃO DA SNIPER", spawn: "wammo|WEAPON_HEAVYSNIPER_MK2" },
+        { nome: "SMG", spawn: "wbody|WEAPON_MICROSMG" },
+        { nome: "MUNIÇÃO DA SMG", spawn: "wammo|WEAPON_MICROSMG" },
+        { nome: "RIFLE MILITAR", spawn: "wbody|WEAPON_MILITARYRIFLE" },
+        { nome: "MUNIÇÃO DO RIFLE MILITAR", spawn: "wammo|WEAPON_MILITARYRIFLE" },
+        { nome: "MINI SMG", spawn: "wbody|WEAPON_MINISMG" },
+        { nome: "MUNIÇÃO DA MINI SMG", spawn: "wammo|WEAPON_MINISMG" },
+        { nome: "AK47-MK2", spawn: "wbody|WEAPON_ASSAULTRIFLE_MK2" },
+        { nome: "MUNIÇÃO DA AK47-MK2", spawn: "wammo|WEAPON_ASSAULTRIFLE_MK2" }
+    ],
+    lojinha: [
+        { nome: "CELULAR", spawn: "celular" },
+        { nome: "RÁDIO", spawn: "radio" },
+        { nome: "GALÃO", spawn: "galao" },
+        { nome: "KIT DE ROUPAS", spawn: "roupas" },
+        { nome: "MILITEC", spawn: "militec" },
+        { nome: "MOCHILA", spawn: "mochila" },
+        { nome: "ALIANÇA", spawn: "alianca" },
+        { nome: "ENERGÉTICO", spawn: "energetico" },
+        { nome: "JOGO DE PNEUS", spawn: "pneus" }
+    ],
+    fabricacao: [
+        { nome: "CÁPSULAS", spawn: "capsulas" },
+        { nome: "GATILHO", spawn: "gatilho" },
+        { nome: "MOLAS", spawn: "molas" },
+        { nome: "PLACA DE METAL", spawn: "placametal" },
+        { nome: "PEÇA DE ARMA", spawn: "pecadearma" },
+        { nome: "ALVEJANTE", spawn: "alvejante" },
+        { nome: "LINHA", spawn: "linha" },
+        { nome: "KEVLAR", spawn: "kevlar" },
+        { nome: "PANO", spawn: "pano" },
+        { nome: "POLVORA", spawn: "polvora" },
+        { nome: "TIROSINA", spawn: "tirosina" },
+        { nome: "FORTRESS", spawn: "fortress" },
+        { nome: "PROJETIL", spawn: "projetil" },
+        { nome: "NITROGÊNIO", spawn: "nitrogenio" },
+        { nome: "NITRO", spawn: "nitro" },
+        { nome: "KIT CONTRABANDO", spawn: "kitcontrabando" },
+        { nome: "KIT MUNIÇÃO", spawn: "kitmunicao" },
+        { nome: "MICHA", spawn: "micha" }
+    ],
+    drogas: [
+        { nome: "MENTOL", spawn: "mentol" },
+        { nome: "COCAÍNA HQ", spawn: "cocaalta" },
+        { nome: "COCAÍNA", spawn: "cocaina" },
+        { nome: "FOLHAS-COCA", spawn: "folhascoca" },
+        { nome: "FUNGOS", spawn: "fungos" },
+        { nome: "LSD", spawn: "lsd" },
+        { nome: "MACONHA", spawn: "maconha" },
+        { nome: "METANFETAMINA", spawn: "metanfetamina" },
+        { nome: "NITRATO-AMONIA", spawn: "nitratoamonia" },
+        { nome: "HAXIXE", spawn: "haxixe" },
+        { nome: "HEROINA", spawn: "heroina" },
+        { nome: "ECSTASY", spawn: "ecstasy" },
+        { nome: "CANÓBIO", spawn: "canobio" },
+        { nome: "SHANK", spawn: "shank" }
+    ],
+    diversos: [
+        { nome: "C4", spawn: "c4" },
+        { nome: "KEYCARD", spawn: "keycard" },
+        { nome: "PEN DRIVE", spawn: "pendrive" },
+        { nome: "COLETE", spawn: "colete" },
+        { nome: "ALGEMA", spawn: "algema" },
+        { nome: "MASTERPICK", spawn: "masterpick" },
+        { nome: "LOCKPICK", spawn: "lockpick" },
+        { nome: "ADRENALINA", spawn: "adrenalina" },
+        { nome: "PLACA DE CLONAR", spawn: "placa" },
+        { nome: "DINHEIRO SUJO", spawn: "dinheirosujer" },
+        { nome: "KIT DE REPARO", spawn: "repairkit" },
+        { nome: "PARACETAMIL", spawn: "paracetamil" },
+        { nome: "DORFREX", spawn: "dorfrex" },
+        { nome: "VOLTAROM", spawn: "voltarom" },
+        { nome: "CHAVE DE PRISÃO", spawn: "chaveprisao" },
+        { nome: "LENHA", spawn: "lenha" },
+        { nome: "MIN. SAFIRA", spawn: "safira" },
+        { nome: "MIN. ESMERALDA", spawn: "esmeralda" },
+        { nome: "FERRO", spawn: "ferro2" },
+        { nome: "RUBI", spawn: "rubi2" },
+        { nome: "AMETISTA", spawn: "ametista2" },
+        { nome: "MIN. BRONZE", spawn: "bronze" },
+        { nome: "MIN.OURO", spawn: "ouro" },
+        { nome: "ANEL ROUBADO", spawn: "anelroubado" },
+        { nome: "ÓCULOS", spawn: "oculos" },
+        { nome: "VIBRADOR", spawn: "vibrador" },
+        { nome: "CINTARALHO", spawn: "cintaralho" },
+        { nome: "LARANJA", spawn: "laranja" },
+        { nome: "TOMATE", spawn: "tomate" },
+        { nome: "MADEIRA", spawn: "madeira" },
+        { nome: "SACO DE GRAMA", spawn: "sacodegrama" },
+        { nome: "PREGO", spawn: "prego" },
+        { nome: "TABUA", spawn: "tabua" },
+        { nome: "TIJOLO", spawn: "tijolo" },
+        { nome: "GARRAFA VAZIA", spawn: "garrafavazia" },
+        { nome: "GARRAFA DE LEITE", spawn: "garrafadeleite" },
+        { nome: "FERRAMENTA", spawn: "ferramenta" },
+        { nome: "TELEFONE DESCARTÁVEL", spawn: "telefonedescartavel" },
+        { nome: "CERVEJA", spawn: "cerveja" },
+        { nome: "IDENTIDADE", spawn: "identidade" },
+        { nome: "TICKET DE MUDANÇA PLACA", spawn: "ticketplaca" },
+        { nome: "TICKET DE MUDANÇA TELEFONE", spawn: "ticketphone" },
+        { nome: "SILVER TAPE", spawn: "silvertape" }
+    ],
+    novas_armas: [
+        { nome: "TAURUS", spawn: "wbody|WEAPON_TAURUS" },
+        { nome: "PP19", spawn: "wbody|WEAPON_PP19" },
+        { nome: "AR15", spawn: "wbody|WEAPON_AR15" },
+        { nome: "PARAFAL", spawn: "wbody|WEAPON_PARAFAL" },
+        { nome: "SCARH", spawn: "wbody|WEAPON_SCARH" }
+    ]
+};
+
+let itensAdicionados = [];
+let historico = [];
+let todosItens = [];
+
+// Criar lista de todos os itens ao carregar
+function criarListaTodosItens() {
+    todosItens = [];
+    for (let categoria in categorias) {
+        categorias[categoria].forEach((item, index) => {
+            todosItens.push({
+                nome: item.nome,
+                spawn: item.spawn,
+                categoria: categoria,
+                index: index
+            });
+        });
+    }
+}
+
+function pesquisarItem() {
+    const termo = document.getElementById('inputPesquisa').value.trim().toLowerCase();
+    const selectItem = document.getElementById('selectItem');
+    
+    selectItem.innerHTML = '<option value="">-- Selecione um item --</option>';
+    
+    if (termo.length < 2) {
+        // Se pesquisa vazia ou muito curta, mostrar itens da categoria selecionada
+        const categoria = document.getElementById('selectCategoria').value;
+        if (categoria) {
+            carregarItens();
+        }
+        return;
+    }
+    
+    // Limpar seleção de categoria ao pesquisar
+    document.getElementById('selectCategoria').value = '';
+    
+    // Filtrar itens que contenham o termo de busca
+    const itensFiltrados = todosItens.filter(item => 
+        item.nome.toLowerCase().includes(termo)
+    );
+    
+    if (itensFiltrados.length === 0) {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = '-- Nenhum item encontrado --';
+        selectItem.appendChild(option);
+        return;
+    }
+    
+    // Adicionar itens encontrados
+    itensFiltrados.forEach(item => {
+        const option = document.createElement('option');
+        option.value = `${item.categoria}|${item.index}`;
+        option.textContent = `${item.nome} (${getNomeCategoria(item.categoria)})`;
+        selectItem.appendChild(option);
+    });
+}
+
+function getNomeCategoria(categoria) {
+    const nomes = {
+        'armas_brancas': 'Armas Brancas',
+        'armas_policia': 'Polícia',
+        'armas_bandidos': 'Bandidos',
+        'armas_extras': 'Extras',
+        'lojinha': 'Lojinha',
+        'fabricacao': 'Fabricação',
+        'drogas': 'Drogas',
+        'diversos': 'Diversos',
+        'novas_armas': 'Novas Armas'
+    };
+    return nomes[categoria] || categoria;
+}
+
+function carregarItens() {
+    const categoria = document.getElementById('selectCategoria').value;
+    const selectItem = document.getElementById('selectItem');
+    
+    // Limpar campo de pesquisa ao selecionar categoria
+    document.getElementById('inputPesquisa').value = '';
+    
+    selectItem.innerHTML = '<option value="">-- Selecione um item --</option>';
+    
+    if (categoria && categorias[categoria]) {
+        categorias[categoria].forEach((item, index) => {
+            const option = document.createElement('option');
+            option.value = `${categoria}|${index}`;
+            option.textContent = item.nome;
+            selectItem.appendChild(option);
+        });
+    }
+}
+
+function adicionarItem() {
+    const itemValue = document.getElementById('selectItem').value;
+    const quantidade = parseInt(document.getElementById('inputQuantidade').value) || 1;
+    
+    if (!itemValue || itemValue === '') {
+        alert('⚠️ Selecione um item!');
+        return;
+    }
+    
+    // Parse do valor (formato: "categoria|index")
+    const [categoria, indexStr] = itemValue.split('|');
+    const itemIndex = parseInt(indexStr);
+    
+    const item = categorias[categoria][itemIndex];
+    
+    itensAdicionados.push({
+        nome: item.nome,
+        spawn: item.spawn,
+        quantidade: quantidade
+    });
+    
+    atualizarListaItens();
+    document.getElementById('inputQuantidade').value = 1;
+    verificarBotaoGerar();
+}
+
+function removerItem(index) {
+    itensAdicionados.splice(index, 1);
+    atualizarListaItens();
+    verificarBotaoGerar();
+}
+
+function atualizarListaItens() {
+    const lista = document.getElementById('listaItens');
+    const empty = document.getElementById('emptyItens');
+    
+    if (itensAdicionados.length === 0) {
+        empty.style.display = 'block';
+        lista.innerHTML = '';
+        return;
+    }
+    
+    empty.style.display = 'none';
+    lista.innerHTML = '';
+    
+    itensAdicionados.forEach((item, index) => {
+        const tag = document.createElement('div');
+        tag.className = 'item-tag';
+        tag.innerHTML = `
+            <span class="item-tag-nome">${item.nome}</span>
+            <span class="item-tag-qtd">x${item.quantidade}</span>
+            <button class="item-tag-remove" onclick="removerItem(${index})">×</button>
+        `;
+        lista.appendChild(tag);
+    });
+}
+
+function verificarBotaoGerar() {
+    const playerId = document.getElementById('inputPlayerId').value.trim();
+    const motivo = document.getElementById('inputMotivo').value.trim();
+    const btn = document.getElementById('btnGerar');
+    
+    btn.disabled = !playerId || !motivo || itensAdicionados.length === 0;
+}
+
+function gerarSolicitacao() {
+    const playerId = document.getElementById('inputPlayerId').value.trim();
+    const motivo = document.getElementById('inputMotivo').value.trim();
+    
+    if (!playerId || !motivo || itensAdicionados.length === 0) return;
+    
+    let itensTexto = itensAdicionados.map(item => 
+        `${item.quantidade} ${item.nome}`
+    ).join(', ');
+    
+    const textoSolicitacao = `SOLICITAÇÃO DE DEVOLUÇÃO
+ID: ${playerId}
+Motivo: ${motivo}
+Itens: ${itensTexto}
+Provas:
+<@&1362168080716927133>`;
+    
+    document.getElementById('solicitacaoTexto').textContent = textoSolicitacao;
+    
+    const comandosLista = document.getElementById('comandosLista');
+    comandosLista.innerHTML = '';
+    
+    itensAdicionados.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'comando-item';
+        div.textContent = `solicitar ${playerId} ${item.spawn} ${item.quantidade}`;
+        div.onclick = () => copiarComando(index);
+        div.title = 'Clique para copiar este comando';
+        comandosLista.appendChild(div);
+    });
+    
+    historico.unshift({
+        playerId: playerId,
+        motivo: motivo,
+        itens: [...itensAdicionados],
+        timestamp: new Date()
+    });
+    
+    if (historico.length > 10) {
+        historico = historico.slice(0, 10);
+    }
+    
+    salvarHistorico();
+    atualizarHistorico();
+    
+    document.getElementById('resultBox').classList.add('show');
+    document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copiarSolicitacao() {
+    const texto = document.getElementById('solicitacaoTexto').textContent;
+    navigator.clipboard.writeText(texto).then(() => {
+        // Copiado silenciosamente
+    });
+}
+
+function copiarComando(index) {
+    const playerId = document.getElementById('inputPlayerId').value.trim();
+    const item = itensAdicionados[index];
+    const comando = `solicitar ${playerId} ${item.spawn} ${item.quantidade}`;
+    
+    navigator.clipboard.writeText(comando).then(() => {
+        // Copiado silenciosamente
+    });
+}
+
+function copiarTodosComandos() {
+    const playerId = document.getElementById('inputPlayerId').value.trim();
+    const comandos = itensAdicionados.map(item => 
+        `solicitar ${playerId} ${item.spawn} ${item.quantidade}`
+    ).join(' ; ');
+    
+    navigator.clipboard.writeText(comandos).then(() => {
+        // Copiado silenciosamente
+    });
+}
+
+function novaSolicitacao() {
+    document.getElementById('inputPlayerId').value = '';
+    document.getElementById('inputMotivo').value = '';
+    document.getElementById('selectCategoria').value = '';
+    document.getElementById('selectItem').innerHTML = '<option value="">-- Selecione um item --</option>';
+    document.getElementById('inputQuantidade').value = 1;
+    itensAdicionados = [];
+    atualizarListaItens();
+    verificarBotaoGerar();
+    document.getElementById('resultBox').classList.remove('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function editarSolicitacao() {
+    document.getElementById('resultBox').classList.remove('show');
+    document.querySelector('.form-box').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function formatarDataHora(data) {
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    const hora = String(data.getHours()).padStart(2, '0');
+    const minuto = String(data.getMinutes()).padStart(2, '0');
+    
+    return `${dia}/${mes}/${ano} às ${hora}:${minuto}`;
+}
+
+function carregarSolicitacao(index) {
+    const item = historico[index];
+    if (!item) return;
+    
+    document.getElementById('inputPlayerId').value = item.playerId;
+    document.getElementById('inputMotivo').value = item.motivo;
+    itensAdicionados = [...item.itens];
+    atualizarListaItens();
+    verificarBotaoGerar();
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function atualizarHistorico() {
+    const lista = document.getElementById('historicoLista');
+    
+    if (historico.length === 0) {
+        lista.innerHTML = '<div class="empty-itens">Nenhuma solicitação realizada ainda</div>';
+        return;
+    }
+    
+    lista.innerHTML = '';
+    
+    historico.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'historico-item';
+        
+        const itensHtml = item.itens.map(i => 
+            `<span class="historico-item-tag">${i.nome} x${i.quantidade}</span>`
+        ).join('');
+        
+        div.innerHTML = `
+            <div class="historico-item-header">
+                <span class="historico-item-id">ID: ${item.playerId}</span>
+                <span class="historico-item-data">📅 ${formatarDataHora(item.timestamp)}</span>
+            </div>
+            <div class="historico-item-motivo">📝 Motivo:  ${item.motivo}</div>
+            <div class="historico-item-itens">${itensHtml}</div>
+            <button class="btn-carregar-historico" onclick="carregarSolicitacao(${index})">📂 Carregar Solicitação</button>
+        `;
+        
+        lista.appendChild(div);
+    });
+}
+
+function salvarHistorico() {
+    try {
+        localStorage.setItem('nexus_historico', JSON.stringify(historico));
+    } catch (e) {
+        console.error('Erro ao salvar histórico:', e);
+    }
+}
+
+function carregarHistoricoStorage() {
+    try {
+        const dados = localStorage.getItem('nexus_historico');
+        if (dados) {
+            historico = JSON.parse(dados);
+            historico = historico.map(item => ({
+                ...item,
+                timestamp: new Date(item.timestamp)
+            }));
+        }
+    } catch (e) {
+        console.error('Erro ao carregar histórico:', e);
+        historico = [];
+    }
+}
+
+function limparHistorico() {
+    if (confirm('⚠️ Deseja realmente limpar todo o histórico?')) {
+        historico = [];
+        localStorage.removeItem('nexus_historico');
+        atualizarHistorico();
+    }
+}
+
+// Event listeners
+document.getElementById('inputPlayerId').addEventListener('input', verificarBotaoGerar);
+document.getElementById('inputMotivo').addEventListener('input', verificarBotaoGerar);
+
+// Inicialização
+window.onload = function() {
+    criarListaTodosItens();
+    carregarHistoricoStorage();
+    atualizarHistorico();
+    
+    // Adicionar evento de pesquisa
+    document.getElementById('inputPesquisa').addEventListener('input', pesquisarItem);
+};
+</script>
+
+</body>
+</html>
