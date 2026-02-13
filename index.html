@@ -706,6 +706,7 @@
             <label>Ou selecione por categoria:</label>
             <select id="selectConsultaCategoria" onchange="consultarPorCategoria()">
                 <option value="">-- Selecione uma categoria --</option>
+                <option value="todos">📦 TODOS OS ITENS</option>
                 <option value="armas_brancas">Armas Brancas</option>
                 <option value="armas_policia">Armas/Munições da Polícia</option>
                 <option value="armas_bandidos">Armas/Munições dos Bandidos</option>
@@ -984,8 +985,13 @@ function consultarPorCategoria() {
         return;
     }
     
-    // Filtrar itens da categoria selecionada
-    const itensFiltrados = todosItens.filter(item => item.categoria === categoria);
+    // Filtrar itens da categoria selecionada ou todos
+    let itensFiltrados;
+    if (categoria === 'todos') {
+        itensFiltrados = todosItens;
+    } else {
+        itensFiltrados = todosItens.filter(item => item.categoria === categoria);
+    }
     
     // Mostrar resultados
     resultContent.innerHTML = '';
