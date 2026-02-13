@@ -619,6 +619,7 @@
             <label>Categoria do Item:</label>
             <select id="selectCategoria" onchange="carregarItens()">
                 <option value="">-- Selecione uma categoria --</option>
+                <option value="todos">📦 TODOS OS ITENS</option>
                 <option value="armas_brancas">Armas Brancas</option>
                 <option value="armas_policia">Armas/Munições da Polícia</option>
                 <option value="armas_bandidos">Armas/Munições dos Bandidos</option>
@@ -1083,7 +1084,15 @@ function carregarItens() {
     
     selectItem.innerHTML = '<option value="">-- Selecione um item --</option>';
     
-    if (categoria && categorias[categoria]) {
+    if (categoria === 'todos') {
+        // Carregar todos os itens de todas as categorias
+        todosItens.forEach(item => {
+            const option = document.createElement('option');
+            option.value = `${item.categoria}|${item.index}`;
+            option.textContent = `${item.nome} (${getNomeCategoria(item.categoria)})`;
+            selectItem.appendChild(option);
+        });
+    } else if (categoria && categorias[categoria]) {
         categorias[categoria].forEach((item, index) => {
             const option = document.createElement('option');
             option.value = `${categoria}|${index}`;
