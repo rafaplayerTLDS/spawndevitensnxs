@@ -628,7 +628,7 @@
                 <option value="fabricacao">Itens de Fabricação</option>
                 <option value="drogas">Itens de Drogas</option>
                 <option value="diversos">Itens Diversos</option>
-                <option value="novas_armas">Novas Armas</option>
+                <option value="municoes">Munições</option>
             </select>
 
             <div class="row">
@@ -716,7 +716,7 @@
                 <option value="fabricacao">Itens de Fabricação</option>
                 <option value="drogas">Itens de Drogas</option>
                 <option value="diversos">Itens Diversos</option>
-                <option value="novas_armas">Novas Armas</option>
+                <option value="municoes">Munições</option>
             </select>
 
             <div class="spawn-result-box" id="spawnResultBox">
@@ -754,44 +754,27 @@ const categorias = {
     ],
     armas_policia: [
         { nome: "M19", spawn: "wbody|WEAPON_PISTOL" },
-        { nome: "MUNIÇÃO DA M19", spawn: "wammo|WEAPON_PISTOL" },
         { nome: "HEAVY", spawn: "wbody|WEAPON_HEAVYPISTOL" },
-        { nome: "MUNIÇÃO DA HEAVY", spawn: "wammo|WEAPON_HEAVYPISTOL" },
         { nome: "REMINGTON 97", spawn: "wbody|WEAPON_PUMPSHOTGUN_MK2" },
-        { nome: "MUNIÇÃO DA REMINGTON 97", spawn: "wammo|WEAPON_PUMPSHOTGUN_MK2" },
         { nome: "SPECIAL CARBINE MK2", spawn: "wbody|WEAPON_SPECIALCARBINE_MK2" },
-        { nome: "MUNIÇÃO DA SPECIAL CARBINE MK2", spawn: "wammo|WEAPON_SPECIALCARBINE_MK2" },
         { nome: "TASER", spawn: "wbody|WEAPON_STUNGUN" }
     ],
     armas_bandidos: [
         { nome: "FIVE SEVEN", spawn: "wbody|WEAPON_PISTOL_MK2" },
-        { nome: "MUNIÇÃO DA FIVE SEVEN", spawn: "wammo|WEAPON_PISTOL_MK2" },
         { nome: "HK", spawn: "wbody|WEAPON_SNSPISTOL" },
-        { nome: "MUNIÇÃO DA HK", spawn: "wammo|WEAPON_SNSPISTOL" },
         { nome: "MAGNUM 44", spawn: "wbody|WEAPON_REVOLVER" },
-        { nome: "MUNIÇÃO DA MAGNUM 44", spawn: "wammo|WEAPON_REVOLVER" },
         { nome: "TEC-9", spawn: "wbody|WEAPON_MACHINEPISTOL" },
-        { nome: "MUNIÇÃO DA TEC-9", spawn: "wammo|WEAPON_MACHINEPISTOL" },
         { nome: "MTAR-21", spawn: "wbody|WEAPON_ASSAULTSMG" },
-        { nome: "MUNIÇÃO DA MTAR-21", spawn: "wammo|WEAPON_ASSAULTSMG" },
         { nome: "AK47", spawn: "wbody|WEAPON_ASSAULTRIFLE" },
-        { nome: "MUNIÇÃO DA AK47", spawn: "wammo|WEAPON_ASSAULTRIFLE" },
         { nome: "M4 SPEC", spawn: "wbody|WEAPON_SPECIALCARBINE" },
-        { nome: "MUNIÇÃO DA M4 SPEC", spawn: "wammo|WEAPON_SPECIALCARBINE" },
-        { nome: "THOMPSON", spawn: "wbody|WEAPON_GUSENBERG" },
-        { nome: "MUNIÇÃO DA THOMPSON", spawn: "wammo|WEAPON_GUSENBERG" }
+        { nome: "THOMPSON", spawn: "wbody|WEAPON_GUSENBERG" }
     ],
     armas_extras: [
-        { nome: "SNIPER", spawn: "wbody|WEAPON_HEAVYSNIPER_MK2" },
-        { nome: "MUNIÇÃO DA SNIPER", spawn: "wammo|WEAPON_HEAVYSNIPER_MK2" },
+        { nome: "SNIPER", spawn: "wammo|WEAPON_PISTOL_MK2" },
         { nome: "SMG", spawn: "wbody|WEAPON_MICROSMG" },
-        { nome: "MUNIÇÃO DA SMG", spawn: "wammo|WEAPON_MICROSMG" },
         { nome: "RIFLE MILITAR", spawn: "wbody|WEAPON_MILITARYRIFLE" },
-        { nome: "MUNIÇÃO DO RIFLE MILITAR", spawn: "wammo|WEAPON_MILITARYRIFLE" },
         { nome: "MINI SMG", spawn: "wbody|WEAPON_MINISMG" },
-        { nome: "MUNIÇÃO DA MINI SMG", spawn: "wammo|WEAPON_MINISMG" },
-        { nome: "AK47-MK2", spawn: "wbody|WEAPON_ASSAULTRIFLE_MK2" },
-        { nome: "MUNIÇÃO DA AK47-MK2", spawn: "wammo|WEAPON_ASSAULTRIFLE_MK2" }
+        { nome: "AK47-MK2", spawn: "wbody|WEAPON_ASSAULTRIFLE_MK2" }
     ],
     lojinha: [
         { nome: "CELULAR", spawn: "celular" },
@@ -838,7 +821,8 @@ const categorias = {
         { nome: "HEROINA", spawn: "heroina" },
         { nome: "ECSTASY", spawn: "ecstasy" },
         { nome: "CANÓBIO", spawn: "canobio" },
-        { nome: "SHANK", spawn: "shank" }
+        { nome: "LANÇA PERFUME", spawn: "lancaperfume" },
+        { nome: "SKANK", spawn: "skank" }
     ],
     diversos: [
         { nome: "C4", spawn: "c4" },
@@ -856,6 +840,7 @@ const categorias = {
         { nome: "DORFREX", spawn: "dorfrex" },
         { nome: "VOLTAROM", spawn: "voltarom" },
         { nome: "CHAVE DE PRISÃO", spawn: "chaveprisao" },
+        { nome: "GRÃOS", spawn: "graos" },
         { nome: "LENHA", spawn: "lenha" },
         { nome: "MIN. SAFIRA", spawn: "safira" },
         { nome: "MIN. ESMERALDA", spawn: "esmeralda" },
@@ -883,14 +868,23 @@ const categorias = {
         { nome: "IDENTIDADE", spawn: "identidade" },
         { nome: "TICKET DE MUDANÇA PLACA", spawn: "ticketplaca" },
         { nome: "TICKET DE MUDANÇA TELEFONE", spawn: "ticketphone" },
-        { nome: "SILVER TAPE", spawn: "silvertape" }
+        { nome: "SILVER TAPE", spawn: "silvertape" },
+        { nome: "DRONE ENDUREX", spawn: "drone" },
+        { nome: "DRONE SKYRACER", spawn: "drone2" },
+        { nome: "DRONE ENDURARACE", spawn: "drone3" },
+        { nome: "DRONE AEROTITAN", spawn: "drone4" },
+        { nome: "LUCKY COIN", spawn: "luckycoin" },
+        { nome: "MOCHILA PREMIUM", spawn: "mochilapremium" },
+        { nome: "VOUCHER INICIAL", spawn: "voucher" },
+        { nome: "DISTINTIVO DE POLÍCIA", spawn: "copbadge" }
     ],
-    novas_armas: [
-        { nome: "TAURUS", spawn: "wbody|WEAPON_TAURUS" },
-        { nome: "PP19", spawn: "wbody|WEAPON_PP19" },
-        { nome: "AR15", spawn: "wbody|WEAPON_AR15" },
-        { nome: "PARAFAL", spawn: "wbody|WEAPON_PARAFAL" },
-        { nome: "SCARH", spawn: "wbody|WEAPON_SCARH" }
+    municoes: [
+        { nome: "MUNIÇÃO DE RIFLE", spawn: "AMMO_RIFLE" },
+        { nome: "MUNIÇÃO DE PISTOLA", spawn: "AMMO_PISTOL" },
+        { nome: "MUNIÇÃO DE SMG", spawn: "AMMO_SMG" },
+        { nome: "MUNIÇÃO DE 12", spawn: "AMMO_SHOTGUN" },
+        { nome: "MUNIÇÃO DE SNIPER", spawn: "AMMO_SNIPER" },
+        { nome: "MUNIÇÃO DE SINALIZADOR", spawn: "AMMO_FLAREGUN" }
     ]
 };
 
@@ -1029,7 +1023,7 @@ function getNomeCategoria(categoria) {
         'fabricacao': 'Fabricação',
         'drogas': 'Drogas',
         'diversos': 'Diversos',
-        'novas_armas': 'Novas Armas'
+        'municoes': 'Munições'
     };
     return nomes[categoria] || categoria;
 }
