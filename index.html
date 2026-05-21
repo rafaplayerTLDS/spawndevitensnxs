@@ -6,616 +6,104 @@
     <title>Solicitação de Itens - NEXUS</title>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #1a1a1a;
-            color: #fff;
-            padding: 20px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* HEADER NEXUS */
-        .header-nexus {
-            display: flex;
-            align-items: stretch;
-            background: #e6e6e6;
-            border: 3px solid #000;
-            margin-bottom: 30px;
-        }
-
-        .nexus-box {
-            background: linear-gradient(180deg, #8b1a1a 0%, #5a0f0f 100%);
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-right: 3px solid #000;
-            min-width: 200px;
-        }
-
-        .nexus-logo {
-            font-size: 42px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .nexus-logo .x {
-            color: #ff0000;
-            font-size: 48px;
-        }
-
-        .titulo-principal {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-style: italic;
-            font-weight: bold;
-            color: #000;
-            padding: 20px;
-        }
-
-        .nexus-box-right {
-            background: linear-gradient(180deg, #8b1a1a 0%, #5a0f0f 100%);
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-left: 3px solid #000;
-            min-width: 200px;
-        }
-
-        /* TABS */
-        .tabs-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab-button {
-            flex: 1;
-            padding: 15px;
-            background: #2a2a2a;
-            color: #fff;
-            border: 2px solid #444;
-            border-radius: 8px 8px 0 0;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 16px;
-            text-transform: uppercase;
-            transition: all 0.3s;
-        }
-
-        .tab-button.active {
-            background: linear-gradient(135deg, #ff3b3b 0%, #c41f1f 100%);
-            border-color: #ff3b3b;
-        }
-
-        .tab-button:hover:not(.active) {
-            background: #333;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* FORMULÁRIO */
-        .form-box {
-            background: #2a2a2a;
-            padding: 30px;
-            border: 3px solid #444;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-
-        .form-box h3 {
-            color: #ff3b3b;
-            margin-bottom: 20px;
-            font-size: 20px;
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: #d4a8a8;
-            text-transform: uppercase;
-            font-size: 13px;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            background: #1a1a1a;
-            color: #fff;
-            border: 2px solid #444;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            font-family: 'Arial', sans-serif;
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        select {
-            cursor: pointer;
-        }
-
-        input::placeholder, textarea::placeholder {
-            color: #666;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #ff3b3b;
-        }
-
-        .row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .col-full {
-            grid-column: 1 / -1;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #ff3b3b 0%, #c41f1f 100%);
-            color: #fff;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(255, 59, 59, 0.4);
-        }
-
-        button:hover {
-            background: linear-gradient(135deg, #e63030 0%, #a81818 100%);
-            box-shadow: 0 6px 20px rgba(255, 59, 59, 0.6);
-            transform: translateY(-2px);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* CONSULTA SPAWN */
-        .spawn-result-box {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 6px;
-            border: 2px solid #444;
-            margin-top: 20px;
-            display: none;
-        }
-
-        .spawn-result-box.show {
-            display: block;
-        }
-
-        .spawn-result-item {
-            background: #2a2a2a;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            border-left: 4px solid #4ade80;
-        }
-
-        .spawn-result-nome {
-            color: #4ade80;
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .spawn-result-categoria {
-            color: #888;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-
-        .spawn-result-comando {
-            background: #1a1a1a;
-            padding: 10px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            color: #fff;
-            font-size: 14px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .spawn-result-comando:hover {
-            background: #333;
-            transform: translateX(3px);
-        }
-
-        .btn-copiar-spawn {
-            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-            padding: 8px 15px;
-            border: none;
-            border-radius: 6px;
-            color: #000;
-            font-weight: 700;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-        }
-
-        .btn-copiar-spawn:hover {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            transform: translateY(-2px);
-        }
-
-        /* LISTA DE ITENS */
-        .itens-adicionados {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 6px;
-            border: 2px solid #444;
-            margin-bottom: 20px;
-            min-height: 80px;
-        }
-
-        .itens-adicionados h4 {
-            color: #ff3b3b;
-            margin-bottom: 15px;
-            font-size: 16px;
-            text-transform: uppercase;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        .item-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin: 5px;
-            border-left: 4px solid #ff3b3b;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            transition: all 0.3s;
-        }
-
-        .item-tag:hover {
-            transform: translateX(3px);
-            box-shadow: 0 4px 12px rgba(255,59,59,0.3);
-        }
-
-        .item-tag-nome {
-            color: #fff;
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-        }
-
-        .item-tag-qtd {
-            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-            color: #000;
-            font-weight: 900;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-        }
-
-        .item-tag-remove {
-            background: linear-gradient(135deg, #ff3b3b 0%, #c41f1f 100%);
-            color: #fff;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 12px;
-            transition: all 0.3s;
-            min-width: 28px;
-            max-width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .item-tag-remove:hover {
-            background: linear-gradient(135deg, #e63030 0%, #a81818 100%);
-            transform: scale(1.1);
-        }
-
-        .empty-itens {
-            color: #666;
-            font-style: italic;
-            text-align: center;
-        }
-
-        /* RESULTADO */
-        .result-box {
-            background: #e6e6e6;
-            border: 3px solid #000;
-            padding: 0;
-            border-radius: 8px;
-            overflow: hidden;
-            display: none;
-            margin-bottom: 30px;
-        }
-
-        .result-box.show {
-            display: block;
-        }
-
-        .result-header {
-            background: #000;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 18px;
-            text-transform: uppercase;
-        }
-
-        .result-content {
-            padding: 30px;
-            color: #000;
-        }
-
-        .solicitacao-texto {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 6px;
-            color: #fff;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.8;
-            white-space: pre-wrap;
-            word-break: break-word;
-            margin-bottom: 15px;
-        }
-
-        .comandos-box {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 6px;
-            margin-top: 15px;
-        }
-
-        .comando-item {
-            color: #4ade80;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            padding: 10px;
-            background: #2a2a2a;
-            border-radius: 4px;
-            border-left: 4px solid #4ade80;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .comando-item:hover {
-            background: #333;
-            transform: translateX(3px);
-        }
-
-        .btn-copy {
-            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-            margin-bottom: 10px;
-        }
-
-        .btn-copy:hover {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-        }
-
-        .button-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        /* HISTÓRICO */
-        .historico-box {
-            background: #2a2a2a;
-            padding: 25px;
-            border: 3px solid #444;
-            border-radius: 8px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .historico-box h3 {
-            color: #ff3b3b;
-            margin-bottom: 15px;
-            font-size: 18px;
-            text-align: center;
-        }
-
-        .historico-item {
-            background: #1a1a1a;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 6px;
-            border-left: 4px solid #ff3b3b;
-        }
-
-        .historico-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #333;
-        }
-
-        .historico-item-id {
-            font-weight: 700;
-            color: #ff3b3b;
-            font-size: 14px;
-        }
-
-        .historico-item-data {
-            font-size: 10px;
-            color: #888;
-        }
-
-        .historico-item-motivo {
-            color: #fff;
-            margin-bottom: 8px;
-            font-size: 12px;
-            padding: 6px 8px;
-            background: #0a0a0a;
-            border-radius: 4px;
-        }
-
-        .historico-item-itens {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 8px;
-            padding: 8px;
-            background: #0a0a0a;
-            border-radius: 4px;
-        }
-
-        .historico-item-tag {
-            background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            border: 1px solid #ff3b3b;
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .btn-carregar-historico {
-            background: linear-gradient(135deg, #ff3b3b 0%, #c41f1f 100%);
-            padding: 6px 12px;
-            border: none;
-            border-radius: 6px;
-            color: #fff;
-            font-weight: 700;
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 8px;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-carregar-historico:hover {
-            background: linear-gradient(135deg, #e63030 0%, #a81818 100%);
-            transform: translateY(-2px);
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; background: #1a1a1a; color: #fff; padding: 20px; min-height: 100vh; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .header-nexus { display: flex; align-items: stretch; background: #e6e6e6; border: 3px solid #000; margin-bottom: 30px; }
+        .nexus-box { background: linear-gradient(180deg, #8b1a1a 0%, #5a0f0f 100%); padding: 20px 40px; display: flex; align-items: center; justify-content: center; border-right: 3px solid #000; min-width: 200px; }
+        .nexus-logo { font-size: 42px; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .nexus-logo .x { color: #ff0000; font-size: 48px; }
+        .titulo-principal { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 28px; font-style: italic; font-weight: bold; color: #000; padding: 20px; }
+        .nexus-box-right { background: linear-gradient(180deg, #8b1a1a 0%, #5a0f0f 100%); padding: 20px 40px; display: flex; align-items: center; justify-content: center; border-left: 3px solid #000; min-width: 200px; }
+        .tabs-container { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab-button { flex: 1; padding: 15px; background: #2a2a2a; color: #fff; border: 2px solid #444; border-radius: 8px 8px 0 0; cursor: pointer; font-weight: 700; font-size: 16px; text-transform: uppercase; transition: all 0.3s; }
+        .tab-button.active { background: linear-gradient(135deg, #ff3b3b 0%, #c41f1f 100%); border-color: #ff3b3b; }
+        .tab-button:hover:not(.active) { background: #333; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .form-box { background: #2a2a2a; padding: 30px; border: 3px solid #444; border-radius: 8px; margin-bottom: 30px; }
+        .form-box h3 { color: #ff3b3b; margin-bottom: 20px; font-size: 20px; text-align: center; }
+        label { display: block; margin-bottom: 10px; font-weight: 600; color: #d4a8a8; text-transform: uppercase; font-size: 13px; }
+        input, select, textarea { width: 100%; padding: 12px; background: #1a1a1a; color: #fff; border: 2px solid #444; border-radius: 6px; font-size: 15px; font-weight: 600; margin-bottom: 20px; font-family: 'Arial', sans-serif; }
+        textarea { min-height: 100px; resize: vertical; }
+        select { cursor: pointer; }
+        input::placeholder, textarea::placeholder { color: #666; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #ff3b3b; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .col-full { grid-column: 1 / -1; }
+        button { width: 100%; padding: 15px; background: linear-gradient(135deg, #ff3b3b 0%, #c41f1f 100%); color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; border: none; border-radius: 8px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(255, 59, 59, 0.4); }
+        button:hover { background: linear-gradient(135deg, #e63030 0%, #a81818 100%); box-shadow: 0 6px 20px rgba(255, 59, 59, 0.6); transform: translateY(-2px); }
+        button:active { transform: translateY(0); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .spawn-result-box { background: #1a1a1a; padding: 20px; border-radius: 6px; border: 2px solid #444; margin-top: 20px; display: none; }
+        .spawn-result-box.show { display: block; }
+        .spawn-result-item { background: #2a2a2a; padding: 15px; border-radius: 6px; margin-bottom: 10px; border-left: 4px solid #4ade80; }
+        .spawn-result-nome { color: #4ade80; font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+        .spawn-result-categoria { color: #888; font-size: 12px; margin-bottom: 10px; }
+        .spawn-result-comando { background: #1a1a1a; padding: 10px; border-radius: 4px; font-family: 'Courier New', monospace; color: #fff; font-size: 14px; margin-bottom: 10px; cursor: pointer; transition: all 0.3s; }
+        .spawn-result-comando:hover { background: #333; transform: translateX(3px); }
+        .btn-copiar-spawn { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); padding: 8px 15px; border: none; border-radius: 6px; color: #000; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.3s; text-transform: uppercase; }
+        .btn-copiar-spawn:hover { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); transform: translateY(-2px); }
+        .itens-adicionados { background: #1a1a1a; padding: 20px; border-radius: 6px; border: 2px solid #444; margin-bottom: 20px; min-height: 80px; }
+        .itens-adicionados h4 { color: #ff3b3b; margin-bottom: 15px; font-size: 16px; text-transform: uppercase; text-align: center; letter-spacing: 1px; }
+        .item-tag { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%); padding: 10px 15px; border-radius: 8px; margin: 5px; border-left: 4px solid #ff3b3b; box-shadow: 0 2px 8px rgba(0,0,0,0.3); transition: all 0.3s; }
+        .item-tag:hover { transform: translateX(3px); box-shadow: 0 4px 12px rgba(255,59,59,0.3); }
+        .item-tag-nome { color: #fff; font-weight: 700; font-size: 13px; text-transform: uppercase; }
+        .item-tag-qtd { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); color: #000; font-weight: 900; padding: 4px 10px; border-radius: 6px; font-size: 12px; }
+        .item-tag-remove { background: linear-gradient(135deg, #ff3b3b 0%, #c41f1f 100%); color: #fff; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 12px; transition: all 0.3s; min-width: 28px; max-width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+        .item-tag-remove:hover { background: linear-gradient(135deg, #e63030 0%, #a81818 100%); transform: scale(1.1); }
+        .empty-itens { color: #666; font-style: italic; text-align: center; }
+        .result-box { background: #e6e6e6; border: 3px solid #000; padding: 0; border-radius: 8px; overflow: hidden; display: none; margin-bottom: 30px; }
+        .result-box.show { display: block; }
+        .result-header { background: #000; color: #fff; padding: 15px; text-align: center; font-weight: 700; font-size: 18px; text-transform: uppercase; }
+        .result-content { padding: 30px; color: #000; }
+        .solicitacao-texto { background: #1a1a1a; padding: 20px; border-radius: 6px; color: #fff; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.8; white-space: pre-wrap; word-break: break-word; margin-bottom: 15px; }
+        .comandos-box { background: #1a1a1a; padding: 20px; border-radius: 6px; margin-top: 15px; }
+        .comando-item { color: #4ade80; font-family: 'Courier New', monospace; font-size: 14px; font-weight: 600; margin-bottom: 10px; padding: 10px; background: #2a2a2a; border-radius: 4px; border-left: 4px solid #4ade80; cursor: pointer; transition: all 0.3s; }
+        .comando-item:hover { background: #333; transform: translateX(3px); }
+        .btn-copy { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); margin-bottom: 10px; }
+        .btn-copy:hover { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
+        .button-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .historico-box { background: #2a2a2a; padding: 25px; border: 3px solid #444; border-radius: 8px; max-height: 400px; overflow-y: auto; }
+        .historico-box h3 { color: #ff3b3b; margin-bottom: 15px; font-size: 18px; text-align: center; }
+        .historico-item { background: #1a1a1a; padding: 12px; margin-bottom: 10px; border-radius: 6px; border-left: 4px solid #ff3b3b; }
+        .historico-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #333; }
+        .historico-item-id { font-weight: 700; color: #ff3b3b; font-size: 14px; }
+        .historico-item-data { font-size: 10px; color: #888; }
+        .historico-item-motivo { color: #fff; margin-bottom: 8px; font-size: 12px; padding: 6px 8px; background: #0a0a0a; border-radius: 4px; }
+        .historico-item-itens { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; padding: 8px; background: #0a0a0a; border-radius: 4px; }
+        .historico-item-tag { background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%); padding: 4px 10px; border-radius: 6px; font-size: 11px; border: 1px solid #ff3b3b; color: #fff; font-weight: 600; }
+        .btn-carregar-historico { background: linear-gradient(135deg, #ff3b3b 0%, #c41f1f 100%); padding: 6px 12px; border: none; border-radius: 6px; color: #fff; font-weight: 700; font-size: 11px; cursor: pointer; transition: all 0.3s; margin-top: 8px; width: 100%; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-carregar-historico:hover { background: linear-gradient(135deg, #e63030 0%, #a81818 100%); transform: translateY(-2px); }
         @media (max-width: 768px) {
-            .header-nexus {
-                flex-direction: column;
-            }
-
-            .nexus-box, .nexus-box-right {
-                border-right: none;
-                border-left: none;
-                border-bottom: 3px solid #000;
-                min-width: 100%;
-            }
-
-            .nexus-box-right {
-                border-bottom: none;
-                border-top: 3px solid #000;
-            }
-
-            .titulo-principal {
-                font-size: 24px;
-            }
-
-            .row {
-                grid-template-columns: 1fr;
-            }
-
-            .button-group {
-                grid-template-columns: 1fr;
-            }
-
-            .tabs-container {
-                flex-direction: column;
-            }
+            .header-nexus { flex-direction: column; }
+            .nexus-box, .nexus-box-right { border-right: none; border-left: none; border-bottom: 3px solid #000; min-width: 100%; }
+            .nexus-box-right { border-bottom: none; border-top: 3px solid #000; }
+            .titulo-principal { font-size: 24px; }
+            .row { grid-template-columns: 1fr; }
+            .button-group { grid-template-columns: 1fr; }
+            .tabs-container { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <!-- HEADER -->
     <div class="header-nexus">
-        <div class="nexus-box">
-            <div class="nexus-logo">NE<span class="x">X</span>US</div>
-        </div>
-        <div class="titulo-principal">
-            Spawn/Devs de Itens
-        </div>
-        <div class="nexus-box-right">
-            <div class="nexus-logo">NE<span class="x">X</span>US</div>
-        </div>
+        <div class="nexus-box"><div class="nexus-logo">NE<span class="x">X</span>US</div></div>
+        <div class="titulo-principal">Spawn/Devs de Itens</div>
+        <div class="nexus-box-right"><div class="nexus-logo">NE<span class="x">X</span>US</div></div>
     </div>
-
-    <!-- TABS -->
     <div class="tabs-container">
         <button class="tab-button active" onclick="trocarAba('solicitacao')">📝 Criar Solicitação</button>
         <button class="tab-button" onclick="trocarAba('consulta')">🔍 Consultar Spawns</button>
     </div>
-
-    <!-- ABA: CRIAR SOLICITAÇÃO -->
     <div id="tab-solicitacao" class="tab-content active">
-        <!-- FORMULÁRIO -->
         <div class="form-box">
             <h3>📝 Criar Solicitação de Devolução</h3>
-            
             <label>ID do Player:</label>
             <input type="text" id="inputPlayerId" placeholder="Digite o ID do player">
-
             <label>Motivo da Solicitação:</label>
             <textarea id="inputMotivo" placeholder="Ex: Perdeu itens por bug, ganhou ação marcada, etc."></textarea>
-
             <label>Categoria do Item:</label>
             <select id="selectCategoria" onchange="carregarItens()">
                 <option value="">-- Selecione uma categoria --</option>
@@ -629,8 +117,14 @@
                 <option value="drogas">Itens de Drogas</option>
                 <option value="diversos">Itens Diversos</option>
                 <option value="municoes">Munições</option>
+                <option value="animais">Animais</option>
+                <option value="pesca">Pesca</option>
+                <option value="pets">Pets/Animais de Estimação</option>
+                <option value="tickets">Tickets e VIPs</option>
+                <option value="veiculos_mods">Modificações de Veículo</option>
+                <option value="joias">Joias e Gemas</option>
+                <option value="especiais">Itens Especiais</option>
             </select>
-
             <div class="row">
                 <div>
                     <label>🔍 Pesquisar Item:</label>
@@ -638,12 +132,9 @@
                 </div>
                 <div>
                     <label>Item:</label>
-                    <select id="selectItem">
-                        <option value="">-- Selecione um item --</option>
-                    </select>
+                    <select id="selectItem"><option value="">-- Selecione um item --</option></select>
                 </div>
             </div>
-
             <div class="row" style="align-items: end;">
                 <div></div>
                 <div>
@@ -651,59 +142,43 @@
                     <input type="number" id="inputQuantidade" placeholder="1" min="1" value="1">
                 </div>
             </div>
-
             <button onclick="adicionarItem()">➕ Adicionar Item</button>
         </div>
-
-        <!-- ITENS ADICIONADOS -->
         <div class="form-box" style="padding: 20px;">
             <div class="itens-adicionados" id="itensAdicionados">
                 <h4>📦 Itens Adicionados</h4>
                 <div class="empty-itens" id="emptyItens">Nenhum item adicionado ainda</div>
                 <div id="listaItens"></div>
             </div>
-
             <button onclick="gerarSolicitacao()" id="btnGerar" disabled>🎯 Gerar Solicitação</button>
         </div>
-
-        <!-- RESULTADO -->
         <div class="result-box" id="resultBox">
             <div class="result-header">📋 SOLICITAÇÃO GERADA</div>
             <div class="result-content">
                 <div class="solicitacao-texto" id="solicitacaoTexto"></div>
                 <button class="btn-copy" onclick="copiarSolicitacao()">📋 Copiar Solicitação Completa</button>
-
                 <div class="comandos-box">
                     <h4 style="color: #4ade80; margin-bottom: 15px; text-align: center;">⚡ COMANDOS INDIVIDUAIS</h4>
                     <div id="comandosLista"></div>
                 </div>
                 <button class="btn-copy" onclick="copiarTodosComandos()">📋 Copiar Todos os Comandos</button>
-
                 <div class="button-group">
                     <button onclick="novaSolicitacao()">🔄 Nova Solicitação</button>
                     <button onclick="editarSolicitacao()">✏️ Editar</button>
                 </div>
             </div>
         </div>
-
-        <!-- HISTÓRICO -->
         <div class="historico-box">
             <h3>📊 Histórico de Solicitações</h3>
-            <div id="historicoLista">
-                <div class="empty-itens">Nenhuma solicitação realizada ainda</div>
-            </div>
+            <div id="historicoLista"><div class="empty-itens">Nenhuma solicitação realizada ainda</div></div>
             <button onclick="limparHistorico()" style="margin-top: 15px;">🗑️ Limpar Histórico</button>
         </div>
     </div>
-
-    <!-- ABA: CONSULTAR SPAWNS -->
     <div id="tab-consulta" class="tab-content">
         <div class="form-box">
             <h3>🔍 Consultar Spawn de Itens</h3>
-            
             <label>Pesquisar Item:</label>
             <input type="text" id="inputConsultaSpawn" placeholder="Digite o nome do item para consultar seu spawn..." oninput="consultarSpawn()">
-
             <label>Ou selecione por categoria:</label>
             <select id="selectConsultaCategoria" onchange="consultarPorCategoria()">
                 <option value="">-- Selecione uma categoria --</option>
@@ -717,15 +192,20 @@
                 <option value="drogas">Itens de Drogas</option>
                 <option value="diversos">Itens Diversos</option>
                 <option value="municoes">Munições</option>
+                <option value="animais">Animais</option>
+                <option value="pesca">Pesca</option>
+                <option value="pets">Pets/Animais de Estimação</option>
+                <option value="tickets">Tickets e VIPs</option>
+                <option value="veiculos_mods">Modificações de Veículo</option>
+                <option value="joias">Joias e Gemas</option>
+                <option value="especiais">Itens Especiais</option>
             </select>
-
             <div class="spawn-result-box" id="spawnResultBox">
                 <div id="spawnResultContent"></div>
             </div>
         </div>
     </div>
 </div>
-
 <script>
 const categorias = {
     armas_brancas: [
@@ -750,14 +230,20 @@ const categorias = {
         { nome: "KATANA", spawn: "wbody|WEAPON_KATANA" },
         { nome: "KATANA FLAMEJANTE", spawn: "wbody|WEAPON_THERMAL" },
         { nome: "KATANA GÉLIDA", spawn: "wbody|WEAPON_FROST" },
-        { nome: "KARAMBIT", spawn: "wbody|WEAPON_KARAMBIT" }
+        { nome: "KARAMBIT", spawn: "wbody|WEAPON_KARAMBIT" },
+        { nome: "FACA DE DIAMANTE", spawn: "facdiamante" }
     ],
     armas_policia: [
         { nome: "M19", spawn: "wbody|WEAPON_PISTOL" },
         { nome: "HEAVY", spawn: "wbody|WEAPON_HEAVYPISTOL" },
         { nome: "REMINGTON 97", spawn: "wbody|WEAPON_PUMPSHOTGUN_MK2" },
         { nome: "SPECIAL CARBINE MK2", spawn: "wbody|WEAPON_SPECIALCARBINE_MK2" },
-        { nome: "TASER", spawn: "wbody|WEAPON_STUNGUN" }
+        { nome: "TASER", spawn: "wbody|WEAPON_STUNGUN" },
+        { nome: "FAIXA POLICIAL", spawn: "faixapolicial" },
+        { nome: "DISTINTIVO DE POLÍCIA", spawn: "copbadge" },
+        { nome: "ALGEMA", spawn: "algema" },
+        { nome: "K9", spawn: "k9" },
+        { nome: "EVIDÊNCIA POLICIAL", spawn: "evidenciapolicial" }
     ],
     armas_bandidos: [
         { nome: "FIVE SEVEN", spawn: "wbody|WEAPON_PISTOL_MK2" },
@@ -768,14 +254,47 @@ const categorias = {
         { nome: "AK47", spawn: "wbody|WEAPON_ASSAULTRIFLE" },
         { nome: "M4 SPEC", spawn: "wbody|WEAPON_SPECIALCARBINE" },
         { nome: "THOMPSON", spawn: "wbody|WEAPON_GUSENBERG" },
-        { nome: "PARAFAL", spawn: "wbody|WEAPON_PARAFAL" }
+        { nome: "PARAFAL", spawn: "wbody|WEAPON_PARAFAL" },
+        { nome: "AKM", spawn: "wbody|WEAPON_AKM" },
+        { nome: "M4", spawn: "wbody|WEAPON_CARBINERIFLE" },
+        { nome: "M4 MK2", spawn: "wbody|WEAPON_CARBINERIFLE_MK2" },
+        { nome: "AK-47 MK2", spawn: "wbody|WEAPON_ASSAULTRIFLE_MK2" },
+        { nome: "PISTOLA DE COMBATE", spawn: "wbody|WEAPON_COMBATPISTOL" },
+        { nome: "AK COMPACTA", spawn: "wbody|WEAPON_COMPACTRIFLE" },
+        { nome: "REVÓLVER DOUBLE ACTION", spawn: "wbody|WEAPON_DOUBLEACTION" },
+        { nome: "PISTOLA PESADA", spawn: "wbody|WEAPON_HEAVYPISTOL" },
+        { nome: "SNIPER PESADA", spawn: "wbody|WEAPON_HEAVYSNIPER" },
+        { nome: "SNIPER MK2", spawn: "wbody|WEAPON_HEAVYSNIPER_MK2" },
+        { nome: "M4A1 EFT", spawn: "wbody|WEAPON_M4A1EFT" },
+        { nome: "PISTOLA AUTOMÁTICA", spawn: "wbody|WEAPON_MACHINEPISTOL" },
+        { nome: "METRALHADORA", spawn: "wbody|WEAPON_MG" },
+        { nome: "MICRO SMG", spawn: "wbody|WEAPON_MICROSMG" },
+        { nome: "MINI SMG", spawn: "wbody|WEAPON_MINISMG" },
+        { nome: "MOSQUETE", spawn: "wbody|WEAPON_MUSKET" },
+        { nome: "PISTOLA MK2", spawn: "wbody|WEAPON_PISTOL_MK2" },
+        { nome: "PISTOLA .50", spawn: "wbody|WEAPON_PISTOL50" },
+        { nome: "SHOTGUN MK2", spawn: "wbody|WEAPON_PUMPSHOTGUN_MK2" },
+        { nome: "REVÓLVER MK2", spawn: "wbody|WEAPON_REVOLVER_MK2" },
+        { nome: "SMG", spawn: "wbody|WEAPON_SMG" },
+        { nome: "SMG MK2", spawn: "wbody|WEAPON_SMG_MK2" },
+        { nome: "SNIPER", spawn: "wbody|WEAPON_SNIPERRIFLE" },
+        { nome: "PISTOLA SNS", spawn: "wbody|WEAPON_SNSPISTOL" },
+        { nome: "CARABINA ESPECIAL", spawn: "wbody|WEAPON_SPECIALCARBINE" },
+        { nome: "CARABINA ESPECIAL MK2", spawn: "wbody|WEAPON_SPECIALCARBINE_MK2" }
     ],
     armas_extras: [
         { nome: "SNIPER", spawn: "wbody|WEAPON_SNIPERRIFLE" },
         { nome: "SMG", spawn: "wbody|WEAPON_MICROSMG" },
         { nome: "RIFLE MILITAR", spawn: "wbody|WEAPON_MILITARYRIFLE" },
         { nome: "MINI SMG", spawn: "wbody|WEAPON_MINISMG" },
-        { nome: "AK47-MK2", spawn: "wbody|WEAPON_ASSAULTRIFLE_MK2" }
+        { nome: "AK47-MK2", spawn: "wbody|WEAPON_ASSAULTRIFLE_MK2" },
+        { nome: "GRANADA DE FUMAÇA", spawn: "wbody|WEAPON_SMOKEGRENADE" },
+        { nome: "EXTINTOR", spawn: "wbody|WEAPON_FIREEXTINGUISHER" },
+        { nome: "LANÇADOR DE FOGOS", spawn: "wbody|WEAPON_FIREWORK" },
+        { nome: "GALÃO DE COMBUSTÍVEL", spawn: "wbody|WEAPON_PETROLCAN" },
+        { nome: "C4 EXPLOSIVO", spawn: "c4" },
+        { nome: "BOMBA VEICULAR", spawn: "carbomb" },
+        { nome: "BOMBA VEICULAR AVANÇADA", spawn: "carbomb2" }
     ],
     lojinha: [
         { nome: "CELULAR", spawn: "celular" },
@@ -784,9 +303,31 @@ const categorias = {
         { nome: "KIT DE ROUPAS", spawn: "roupas" },
         { nome: "MILITEC", spawn: "militec" },
         { nome: "MOCHILA", spawn: "mochila" },
+        { nome: "MOCHILA 100KG", spawn: "mochila100" },
+        { nome: "MOCHILA 200KG", spawn: "mochila200" },
+        { nome: "MOCHILA PREMIUM", spawn: "mochilapremium" },
         { nome: "ALIANÇA", spawn: "alianca" },
         { nome: "ENERGÉTICO", spawn: "energetico" },
-        { nome: "JOGO DE PNEUS", spawn: "pneus" }
+        { nome: "JOGO DE PNEUS", spawn: "jogodepneu" },
+        { nome: "COLETE BALÍSTICO", spawn: "colete" },
+        { nome: "BINÓCULO", spawn: "binoculars" },
+        { nome: "CÂMERA", spawn: "camera" },
+        { nome: "MEGAFONE", spawn: "megaphone" },
+        { nome: "SKATE", spawn: "skate" },
+        { nome: "BOLSA DE PLÁSTICO", spawn: "bolsadeplastico" },
+        { nome: "BOLSA DE ROUPAS", spawn: "bagclothes" },
+        { nome: "BOLSA DE SANGUE", spawn: "bolsadesangue" },
+        { nome: "GARRAFA VAZIA", spawn: "garrafavazia" },
+        { nome: "GARRAFA DE LEITE", spawn: "garrafadeleite" },
+        { nome: "CERVEJA", spawn: "cerveja" },
+        { nome: "VODKA", spawn: "vodka" },
+        { nome: "WHISKY", spawn: "whisky" },
+        { nome: "WHISKY RED LABEL", spawn: "redlabel" },
+        { nome: "CONHAQUE", spawn: "conhaque" },
+        { nome: "TEQUILA", spawn: "tequila" },
+        { nome: "LANCHE", spawn: "lanche" },
+        { nome: "LARANJA", spawn: "laranja" },
+        { nome: "TOMATE", spawn: "tomate" }
     ],
     fabricacao: [
         { nome: "CÁPSULAS", spawn: "capsulas" },
@@ -806,24 +347,68 @@ const categorias = {
         { nome: "NITRO", spawn: "nitro" },
         { nome: "KIT CONTRABANDO", spawn: "kitcontrabando" },
         { nome: "KIT MUNIÇÃO", spawn: "kitmunicao" },
-        { nome: "MICHA", spawn: "micha" }
+        { nome: "MICHA", spawn: "micha" },
+        { nome: "ALUMÍNIO", spawn: "aluminio" },
+        { nome: "CORANTE", spawn: "corante" },
+        { nome: "COURO", spawn: "couro" },
+        { nome: "DIÓXIDO DE TITÂNIO", spawn: "dioxidotitanio" },
+        { nome: "FERRO BRUTO", spawn: "ferro2" },
+        { nome: "FERRO", spawn: "ferro" },
+        { nome: "MADEIRA", spawn: "madeira" },
+        { nome: "PREGO", spawn: "prego" },
+        { nome: "TÁBUA", spawn: "tabua" },
+        { nome: "TIJOLO", spawn: "tijolo" },
+        { nome: "SACO DE GRAMA", spawn: "sacodegrama" },
+        { nome: "LENHA", spawn: "lenha" },
+        { nome: "SERRA", spawn: "serra" },
+        { nome: "FURADEIRA", spawn: "furadeira" },
+        { nome: "FERRAMENTA", spawn: "ferramenta" },
+        { nome: "SUCATA", spawn: "sucata" },
+        { nome: "ADUBO", spawn: "adubo" },
+        { nome: "FERTILIZANTE", spawn: "fertilizante" },
+        { nome: "FLUIDO VOLÁTIL", spawn: "fluidovolatil" },
+        { nome: "MENTOL", spawn: "mentol" },
+        { nome: "NITRATO DE AMÔNIA", spawn: "nitratoamonia" },
+        { nome: "SÓDIO", spawn: "sodio" },
+        { nome: "BRONZE", spawn: "bronze" },
+        { nome: "BRONZE BRUTO", spawn: "bronze2" },
+        { nome: "ARMAÇÃO DE ARMA", spawn: "armacaodearma" },
+        { nome: "AMORTECEDOR", spawn: "amortecedor" },
+        { nome: "BATERIA", spawn: "bateria" },
+        { nome: "MOTOR", spawn: "motor" },
+        { nome: "PNEUS", spawn: "pneus" },
+        { nome: "MUAMBA", spawn: "muamba" },
+        { nome: "KIT HIDROPÔNICO", spawn: "hidroponico" }
     ],
     drogas: [
         { nome: "MENTOL", spawn: "mentol" },
-        { nome: "COCAÍNA HQ", spawn: "cocaalta" },
+        { nome: "COCAÍNA PURA", spawn: "cocaalta" },
         { nome: "COCAÍNA", spawn: "cocaina" },
-        { nome: "FOLHAS-COCA", spawn: "folhascoca" },
+        { nome: "FOLHAS DE COCA", spawn: "folhascoca" },
         { nome: "FUNGOS", spawn: "fungos" },
         { nome: "LSD", spawn: "lsd" },
+        { nome: "ÁCIDO LISÉRGICO", spawn: "acidolisergico" },
         { nome: "MACONHA", spawn: "maconha" },
+        { nome: "MACONHA PREMIUM", spawn: "maconhaalta" },
+        { nome: "MACONHA PRENSADA", spawn: "maconhadichavada" },
+        { nome: "SKANK", spawn: "skank" },
         { nome: "METANFETAMINA", spawn: "metanfetamina" },
-        { nome: "NITRATO-AMONIA", spawn: "nitratoamonia" },
-        { nome: "HAXIXE", spawn: "haxixe" },
-        { nome: "HEROINA", spawn: "heroina" },
+        { nome: "METANFETAMINA PREMIUM", spawn: "metaalta" },
+        { nome: "NITRATO DE AMÔNIA", spawn: "nitratoamonia" },
+        { nome: "HEROÍNA", spawn: "heroina" },
+        { nome: "HEROÍNA EMBALADA", spawn: "heroinaembalada" },
         { nome: "ECSTASY", spawn: "ecstasy" },
+        { nome: "ECSTASY EMBALADA", spawn: "ecstasyembalada" },
+        { nome: "MDMA", spawn: "mdma" },
+        { nome: "MDPV", spawn: "mdpv" },
         { nome: "CANÓBIO", spawn: "canobio" },
+        { nome: "CANNABIS PREMIUM", spawn: "canabisalta" },
         { nome: "LANÇA PERFUME", spawn: "lancaperfume" },
-        { nome: "SKANK", spawn: "skank" }
+        { nome: "ÓPIO", spawn: "opio" },
+        { nome: "THC", spawn: "thc" },
+        { nome: "CRACK", spawn: "crack" },
+        { nome: "COMPOSTO PREMIUM", spawn: "compositoalta" },
+        { nome: "PASTA PREMIUM", spawn: "pastaalta" }
     ],
     diversos: [
         { nome: "C4", spawn: "c4" },
@@ -837,48 +422,115 @@ const categorias = {
         { nome: "PLACA DE CLONAR", spawn: "placa" },
         { nome: "DINHEIRO SUJO", spawn: "dinheirosujer" },
         { nome: "KIT DE REPARO", spawn: "repairkit" },
-        { nome: "PARACETAMIL", spawn: "paracetamil" },
-        { nome: "DORFREX", spawn: "dorfrex" },
+        { nome: "PARACETAMOL", spawn: "paracetamil" },
+        { nome: "DORFLEX", spawn: "dorfrex" },
+        { nome: "BUSCOPAN", spawn: "buscopom" },
+        { nome: "ZOLPIDEM", spawn: "zolpidem" },
         { nome: "VOLTAROM", spawn: "voltarom" },
+        { nome: "TRANDRYLUX", spawn: "trandrylux" },
         { nome: "CHAVE DE PRISÃO", spawn: "chaveprisao" },
+        { nome: "CHAVE INGLESA", spawn: "chaveinglesa" },
         { nome: "GRÃOS", spawn: "graos" },
+        { nome: "GRÃOS IMPUROS", spawn: "graosimpuros" },
         { nome: "LENHA", spawn: "lenha" },
         { nome: "MIN. SAFIRA", spawn: "safira" },
         { nome: "MIN. ESMERALDA", spawn: "esmeralda" },
-        { nome: "FERRO", spawn: "ferro2" },
+        { nome: "MIN. TOPÁZIO", spawn: "topazio" },
+        { nome: "TOPÁZIO BRUTO", spawn: "topazio2" },
+        { nome: "FERRO BRUTO", spawn: "ferro2" },
         { nome: "RUBI", spawn: "rubi2" },
         { nome: "AMETISTA", spawn: "ametista2" },
         { nome: "MIN. BRONZE", spawn: "bronze" },
-        { nome: "MIN.OURO", spawn: "ouro" },
+        { nome: "MIN. OURO", spawn: "ouro" },
+        { nome: "OURO BRUTO", spawn: "ouro2" },
+        { nome: "DIAMANTE", spawn: "diamante" },
+        { nome: "DIAMANTE BRUTO", spawn: "diamante2" },
+        { nome: "PÉROLA", spawn: "perola" },
         { nome: "ANEL ROUBADO", spawn: "anelroubado" },
+        { nome: "COLAR ROUBADO", spawn: "colarroubado" },
+        { nome: "PULSEIRA ROUBADA", spawn: "pulseiraroubada" },
+        { nome: "PULSEIRA", spawn: "pulseiravanilla" },
+        { nome: "BRINCO ROUBADO", spawn: "brincoroubado" },
+        { nome: "RELÓGIO", spawn: "relogio" },
+        { nome: "RELÓGIO ROUBADO", spawn: "relogioroubado" },
+        { nome: "RELÓGIO NEXUS", spawn: "nexuswatch" },
+        { nome: "CARTEIRA ROUBADA", spawn: "carteiraroubada" },
+        { nome: "SAPATOS ROUBADOS", spawn: "sapatosroubado" },
+        { nome: "TABLET ROUBADO", spawn: "tabletroubado" },
         { nome: "ÓCULOS", spawn: "oculos" },
         { nome: "VIBRADOR", spawn: "vibrador" },
-        { nome: "CINTARALHO", spawn: "cintaralho" },
-        { nome: "LARANJA", spawn: "laranja" },
-        { nome: "TOMATE", spawn: "tomate" },
+        { nome: "CINTO TÁTICO", spawn: "cintaralho" },
+        { nome: "CAPUZ", spawn: "capuz" },
+        { nome: "MÁSCARA", spawn: "mascara" },
+        { nome: "ROUPA", spawn: "roupa" },
+        { nome: "ROUPAS", spawn: "roupas" },
         { nome: "MADEIRA", spawn: "madeira" },
         { nome: "SACO DE GRAMA", spawn: "sacodegrama" },
+        { nome: "SACO DE LIXO", spawn: "sacodelixo" },
+        { nome: "SACO PLÁSTICO", spawn: "sacoplastico" },
         { nome: "PREGO", spawn: "prego" },
-        { nome: "TABUA", spawn: "tabua" },
+        { nome: "TÁBUA", spawn: "tabua" },
         { nome: "TIJOLO", spawn: "tijolo" },
         { nome: "GARRAFA VAZIA", spawn: "garrafavazia" },
+        { nome: "ÁGUA", spawn: "agua" },
+        { nome: "GARRAFA VAZIA (ÁGUA)", spawn: "aguavazia" },
         { nome: "GARRAFA DE LEITE", spawn: "garrafadeleite" },
         { nome: "FERRAMENTA", spawn: "ferramenta" },
-        { nome: "TELEFONE DESCARTÁVEL", spawn: "telefonedescartavel" },
+        { nome: "CELULAR DESCARTÁVEL", spawn: "telefonedescartavel" },
         { nome: "CERVEJA", spawn: "cerveja" },
         { nome: "IDENTIDADE", spawn: "identidade" },
+        { nome: "RG FALSO", spawn: "rgfalso" },
         { nome: "TICKET DE MUDANÇA PLACA", spawn: "ticketplaca" },
         { nome: "TICKET DE MUDANÇA TELEFONE", spawn: "ticketphone" },
         { nome: "SILVER TAPE", spawn: "silvertape" },
+        { nome: "CORDA", spawn: "corda" },
+        { nome: "LAÇO", spawn: "laco" },
+        { nome: "PÁ", spawn: "pa" },
+        { nome: "ISCA", spawn: "isca" },
+        { nome: "VARA DE PESCA", spawn: "varadepesca" },
         { nome: "DRONE ENDUREX", spawn: "drone" },
         { nome: "DRONE SKYRACER", spawn: "drone2" },
         { nome: "DRONE ENDURARACE", spawn: "drone3" },
         { nome: "DRONE AEROTITAN", spawn: "drone4" },
+        { nome: "DRONE COM CÂMERA", spawn: "cameradrone" },
         { nome: "LUCKY COIN", spawn: "luckycoin" },
-        { nome: "MOCHILA PREMIUM", spawn: "mochilapremium" },
         { nome: "VOUCHER INICIAL", spawn: "voucher" },
-        { nome: "DISTINTIVO DE POLÍCIA", spawn: "copbadge" },
-        { nome: "GPSJACK", spawn: "gpsjack" }
+        { nome: "NEXUS COIN", spawn: "nexuscoin" },
+        { nome: "ORIGIN COIN", spawn: "origincoin" },
+        { nome: "MOEDAS", spawn: "moedas" },
+        { nome: "ENCOMENDA", spawn: "encomenda" },
+        { nome: "MAPA", spawn: "map" },
+        { nome: "TOKEN DE MAPA", spawn: "maptoken" },
+        { nome: "DISPOSITIVO GPS", spawn: "gpsdevice" },
+        { nome: "HACK GPS", spawn: "gpsjack" },
+        { nome: "VERIFICADOR GPS", spawn: "gpscheck" },
+        { nome: "REMOVEDOR GPS", spawn: "gpsremover" },
+        { nome: "SCANNER DIGITAL", spawn: "digiscanner" },
+        { nome: "NANO CÂMERA", spawn: "nanospycam" },
+        { nome: "NANO GPS", spawn: "nanospygps" },
+        { nome: "NANO MICROFONE", spawn: "nanospymic" },
+        { nome: "NANO TABLET", spawn: "nanospytablet" },
+        { nome: "USB HACKER", spawn: "usbhack" },
+        { nome: "KIT MUNIÇÃO", spawn: "kitmunicao" },
+        { nome: "CIBRADOR", spawn: "cibrador" },
+        { nome: "PURGADOR", spawn: "purgador" },
+        { nome: "TAXA DESMANCHE", spawn: "taxadesmanche" },
+        { nome: "EQUIPAMENTO SCUBA", spawn: "scuba" },
+        { nome: "RESET DE APARÊNCIA", spawn: "resetaparencia" },
+        { nome: "ÓRGÃO", spawn: "orgao" },
+        { nome: "PENDRIVE", spawn: "pendrive" },
+        { nome: "CAIXA LESTER", spawn: "lester_box" },
+        { nome: "CAIXA WESTGATE", spawn: "westgate" },
+        { nome: "FUELTECH", spawn: "fueltech" },
+        { nome: "ASA DE NATAL", spawn: "wing_christmas2022" },
+        { nome: "MUAMBA", spawn: "muamba" },
+        { nome: "KIT CONTRABANDO", spawn: "kitcontrabando" },
+        { nome: "TOMATE", spawn: "tomate" },
+        { nome: "LARANJA", spawn: "laranja" },
+        { nome: "CARNE", spawn: "carne" },
+        { nome: "GRÃOS", spawn: "graos" },
+        { nome: "GRÃOS IMPUROS", spawn: "graosimpuros" },
+        { nome: "VOUCHER", spawn: "voucher" }
     ],
     municoes: [
         { nome: "MUNIÇÃO DE RIFLE", spawn: "AMMO_RIFLE" },
@@ -886,7 +538,191 @@ const categorias = {
         { nome: "MUNIÇÃO DE SMG", spawn: "AMMO_SMG" },
         { nome: "MUNIÇÃO DE 12", spawn: "AMMO_SHOTGUN" },
         { nome: "MUNIÇÃO DE SNIPER", spawn: "AMMO_SNIPER" },
-        { nome: "MUNIÇÃO DE SINALIZADOR", spawn: "AMMO_FLAREGUN" }
+        { nome: "MUNIÇÃO DE SINALIZADOR", spawn: "AMMO_FLAREGUN" },
+        { nome: "MUN. AKM", spawn: "wammo|WEAPON_AKM" },
+        { nome: "MUN. AK-47", spawn: "wammo|WEAPON_ASSAULTRIFLE" },
+        { nome: "MUN. AK-47 MK2", spawn: "wammo|WEAPON_ASSAULTRIFLE_MK2" },
+        { nome: "MUN. SMG DE ASSALTO", spawn: "wammo|WEAPON_ASSAULTSMG" },
+        { nome: "MUN. GÁS BZ", spawn: "wammo|WEAPON_BZGAS" },
+        { nome: "MUN. M4", spawn: "wammo|WEAPON_CARBINERIFLE" },
+        { nome: "MUN. M4 MK2", spawn: "wammo|WEAPON_CARBINERIFLE_MK2" },
+        { nome: "MUN. PISTOLA DE COMBATE", spawn: "wammo|WEAPON_COMBATPISTOL" },
+        { nome: "MUN. RIFLE COMPACTO", spawn: "wammo|WEAPON_COMPACTRIFLE" },
+        { nome: "MUN. REVÓLVER DOUBLE ACTION", spawn: "wammo|WEAPON_DOUBLEACTION" },
+        { nome: "CARGA EXTINTOR", spawn: "wammo|WEAPON_FIREEXTINGUISHER" },
+        { nome: "MUN. FOGOS", spawn: "wammo|WEAPON_FIREWORK" },
+        { nome: "MUN. SINALIZADOR", spawn: "wammo|WEAPON_FLARE" },
+        { nome: "MUN. THOMPSON", spawn: "wammo|WEAPON_GUSENBERG" },
+        { nome: "MUN. PISTOLA PESADA", spawn: "wammo|WEAPON_HEAVYPISTOL" },
+        { nome: "MUN. SNIPER PESADA", spawn: "wammo|WEAPON_HEAVYSNIPER" },
+        { nome: "MUN. SNIPER MK2", spawn: "wammo|WEAPON_HEAVYSNIPER_MK2" },
+        { nome: "MUN. M4A1 EFT", spawn: "wammo|WEAPON_M4A1EFT" },
+        { nome: "MUN. PISTOLA AUTOMÁTICA", spawn: "wammo|WEAPON_MACHINEPISTOL" },
+        { nome: "MUN. METRALHADORA", spawn: "wammo|WEAPON_MG" },
+        { nome: "MUN. MICRO SMG", spawn: "wammo|WEAPON_MICROSMG" },
+        { nome: "MUN. RIFLE MILITAR", spawn: "wammo|WEAPON_MILITARYRIFLE" },
+        { nome: "MUN. MINI SMG", spawn: "wammo|WEAPON_MINISMG" },
+        { nome: "MUN. MOSQUETE", spawn: "wammo|WEAPON_MUSKET" },
+        { nome: "COMBUSTÍVEL (GALÃO)", spawn: "wammo|WEAPON_PETROLCAN" },
+        { nome: "MUN. PISTOLA", spawn: "wammo|WEAPON_PISTOL" },
+        { nome: "MUN. PISTOLA MK2", spawn: "wammo|WEAPON_PISTOL_MK2" },
+        { nome: "MUN. PISTOLA .50", spawn: "wammo|WEAPON_PISTOL50" },
+        { nome: "MUN. SHOTGUN MK2", spawn: "wammo|WEAPON_PUMPSHOTGUN_MK2" },
+        { nome: "MUN. REVÓLVER", spawn: "wammo|WEAPON_REVOLVER" },
+        { nome: "MUN. REVÓLVER MK2", spawn: "wammo|WEAPON_REVOLVER_MK2" },
+        { nome: "MUN. SMG", spawn: "wammo|WEAPON_SMG" },
+        { nome: "MUN. SMG MK2", spawn: "wammo|WEAPON_SMG_MK2" },
+        { nome: "GRANADA DE FUMAÇA", spawn: "wammo|WEAPON_SMOKEGRENADE" },
+        { nome: "MUN. SNIPER", spawn: "wammo|WEAPON_SNIPERRIFLE" },
+        { nome: "MUN. SNS", spawn: "wammo|WEAPON_SNSPISTOL" },
+        { nome: "MUN. CARABINA", spawn: "wammo|WEAPON_SPECIALCARBINE" },
+        { nome: "MUN. CARABINA MK2", spawn: "wammo|WEAPON_SPECIALCARBINE_MK2" },
+        { nome: "CARGA TASER", spawn: "wammo|WEAPON_STUNGUN" },
+        { nome: "MUN. PARAQUEDAS", spawn: "wammo|GADGET_PARACHUTE" }
+    ],
+    animais: [
+        { nome: "VACA", spawn: "a_c_cow" },
+        { nome: "VEADO", spawn: "a_c_deer" },
+        { nome: "BURRO", spawn: "donkey" },
+        { nome: "CROCODILO", spawn: "crocodile" },
+        { nome: "LEOPARDO", spawn: "lepoard" },
+        { nome: "LEÃO", spawn: "malelion" },
+        { nome: "PANDA VERMELHO", spawn: "redpanda" },
+        { nome: "TUBARÃO TIGRE", spawn: "tigershark" },
+        { nome: "LOBO", spawn: "wolf" },
+        { nome: "CAVALO COMPLETO", spawn: "fullhorse" },
+        { nome: "CAVALO DE CORRIDA", spawn: "rangehorse" },
+        { nome: "CAVALO JOVEM", spawn: "younghorse" },
+        { nome: "KURAMA", spawn: "vyn_kuramacalda" },
+        { nome: "NARUTO MODO 6", spawn: "vyn_naruto6" },
+        { nome: "SASUKE MODO 6", spawn: "vyn_sasuke6" },
+        { nome: "SUSANOO", spawn: "vyn_susanoo" }
+    ],
+    pesca: [
+        { nome: "VARA DE PESCA", spawn: "varadepesca" },
+        { nome: "ISCA", spawn: "isca" },
+        { nome: "LINHA", spawn: "linha" },
+        { nome: "LAMBARI", spawn: "lambari" },
+        { nome: "PACU", spawn: "pacu" },
+        { nome: "PINTADO", spawn: "pintado" },
+        { nome: "PIRARUCU", spawn: "pirarucu" },
+        { nome: "SALMÃO", spawn: "salmao" },
+        { nome: "TILÁPIA", spawn: "tilapia" },
+        { nome: "TUCUNARÉ", spawn: "tucunare" },
+        { nome: "CORVINA", spawn: "corvina" }
+    ],
+    pets: [
+        { nome: "CONECTOR PET", spawn: "dogconnect" },
+        { nome: "ENERGIA PET", spawn: "dogenergy" },
+        { nome: "ENERGIA PET PLUS", spawn: "dogenergyplus" },
+        { nome: "RAÇÃO PET", spawn: "dogfood" },
+        { nome: "ÁGUA PET", spawn: "dogfreshwater" },
+        { nome: "COLEIRA", spawn: "dogleash" },
+        { nome: "COLEIRA PRO", spawn: "dogleashpro" },
+        { nome: "RAÇÃO PREMIUM", spawn: "dogpremiumfood" },
+        { nome: "REVIVER PET", spawn: "dogrevive" },
+        { nome: "REVIVER PET PLUS", spawn: "dogreviveplus" },
+        { nome: "BOLA PET", spawn: "dogtennis" },
+        { nome: "ÁGUA PET (2)", spawn: "dogwater" },
+        { nome: "CURA PET", spawn: "pethealth" },
+        { nome: "CURA PET MÉDIA", spawn: "pethealth2" },
+        { nome: "CURA PET GRANDE", spawn: "pethealth3" },
+        { nome: "CURA PET MÁXIMA", spawn: "pethealth4" },
+        { nome: "BOLA PET (2)", spawn: "petball" },
+        { nome: "RAÇÃO PET (2)", spawn: "petfood" },
+        { nome: "CORDA PET", spawn: "petrope" },
+        { nome: "ÁGUA PET (3)", spawn: "petthirst" }
+    ],
+    tickets: [
+        { nome: "TICKET DONATER", spawn: "tickcetdonater" },
+        { nome: "TICKET HYPER", spawn: "tickcethyper" },
+        { nome: "TICKET HYPER+", spawn: "tickcethypermais" },
+        { nome: "TICKET CARIMBADO", spawn: "ticketcarimbado" },
+        { nome: "TICKET CORRIDA", spawn: "ticketcorrida" },
+        { nome: "PASSE VIP", spawn: "ticketpassevip" },
+        { nome: "PASSE VIP NÍVEL 1", spawn: "ticketpassevip1" },
+        { nome: "PASSE VIP V1", spawn: "ticketpassevipv1" },
+        { nome: "PASSE VIP V3", spawn: "ticketpassevipv3" },
+        { nome: "PASSE VIP V4", spawn: "ticketpassevipv4" },
+        { nome: "VIP BRONZE", spawn: "ticketvipbronze" },
+        { nome: "VIP NEXUS", spawn: "ticketvipnexus" },
+        { nome: "VIP NEXUS+", spawn: "ticketvipnexusplus" },
+        { nome: "VIP OURO", spawn: "ticketvipouro" },
+        { nome: "VIP PRATA", spawn: "ticketvipprata" },
+        { nome: "TICKET PLACA", spawn: "ticketplaca" },
+        { nome: "TICKET TELEFONE", spawn: "ticketphone" },
+        { nome: "TICKET ROLETA", spawn: "ticketroleta" },
+        { nome: "LUCKY COIN", spawn: "luckycoin" },
+        { nome: "NEXUS COIN", spawn: "nexuscoin" },
+        { nome: "ORIGIN COIN", spawn: "origincoin" }
+    ],
+    veiculos_mods: [
+        { nome: "KIT CAMBER", spawn: "kitcamber" },
+        { nome: "KIT NEON", spawn: "kitneon" },
+        { nome: "KIT OFFSET", spawn: "kitoffset" },
+        { nome: "KIT XENON", spawn: "kitxenon" },
+        { nome: "AMORTECEDOR", spawn: "amortecedor" },
+        { nome: "BATERIA", spawn: "bateria" },
+        { nome: "ESCAPAMENTO POP", spawn: "escapamentoPop" },
+        { nome: "FUELTECH", spawn: "fueltech" },
+        { nome: "JOGO DE PNEUS", spawn: "jogodepneu" },
+        { nome: "MOTOR", spawn: "motor" },
+        { nome: "NITRO", spawn: "nitro" },
+        { nome: "PNEUS", spawn: "pneus" },
+        { nome: "SUSPENSÃO A AR", spawn: "suspensaoar" }
+    ],
+    joias: [
+        { nome: "AMETISTA", spawn: "ametista" },
+        { nome: "AMETISTA BRUTA", spawn: "ametista2" },
+        { nome: "BRONZE", spawn: "bronze" },
+        { nome: "BRONZE BRUTO", spawn: "bronze2" },
+        { nome: "DIAMANTE", spawn: "diamante" },
+        { nome: "DIAMANTE BRUTO", spawn: "diamante2" },
+        { nome: "ESMERALDA", spawn: "esmeralda" },
+        { nome: "ESMERALDA BRUTA", spawn: "esmeralda2" },
+        { nome: "FERRO", spawn: "ferro" },
+        { nome: "FERRO BRUTO", spawn: "ferro2" },
+        { nome: "OURO", spawn: "ouro" },
+        { nome: "OURO BRUTO", spawn: "ouro2" },
+        { nome: "PÉROLA", spawn: "perola" },
+        { nome: "RUBI", spawn: "rubi" },
+        { nome: "RUBI BRUTO", spawn: "rubi2" },
+        { nome: "SAFIRA", spawn: "safira" },
+        { nome: "SAFIRA BRUTA", spawn: "safira2" },
+        { nome: "TOPÁZIO", spawn: "topazio" },
+        { nome: "TOPÁZIO BRUTO", spawn: "topazio2" },
+        { nome: "ANEL ROUBADO", spawn: "anelroubado" },
+        { nome: "BRINCO ROUBADO", spawn: "brincoroubado" },
+        { nome: "COLAR ROUBADO", spawn: "colarroubado" },
+        { nome: "PULSEIRA ROUBADA", spawn: "pulseiraroubada" },
+        { nome: "RELÓGIO ROUBADO", spawn: "relogioroubado" },
+        { nome: "RELÓGIO NEXUS", spawn: "nexuswatch" }
+    ],
+    especiais: [
+        { nome: "CHAVE CAIXA AMETISTA", spawn: "chave_amethystbox" },
+        { nome: "CHAVE CYBER LEGEND", spawn: "chave_cyberlegend" },
+        { nome: "CHAVE DUCK BOX", spawn: "chave_duckbox" },
+        { nome: "CHAVE CAIXA LENDÁRIA", spawn: "chave_legendbox" },
+        { nome: "CHAVE PORCO LENDÁRIO", spawn: "chave_legendpig" },
+        { nome: "CHAVE CAIXA LUXUOSA", spawn: "chave_luxuriusbox" },
+        { nome: "CHAVE CAIXA ROYAL", spawn: "chave_royalbox" },
+        { nome: "CAIXA FORTRESS", spawn: "fortress" },
+        { nome: "CAIXA LESTER", spawn: "lester_box" },
+        { nome: "CAIXA WESTGATE", spawn: "westgate" },
+        { nome: "ASA DE NATAL", spawn: "wing_christmas2022" },
+        { nome: "KURAMA", spawn: "vyn_kuramacalda" },
+        { nome: "NARUTO MODO 6", spawn: "vyn_naruto6" },
+        { nome: "SASUKE MODO 6", spawn: "vyn_sasuke6" },
+        { nome: "SUSANOO", spawn: "vyn_susanoo" },
+        { nome: "RELÓGIO NEXUS", spawn: "nexuswatch" },
+        { nome: "NEXUS COIN", spawn: "nexuscoin" },
+        { nome: "ORIGIN COIN", spawn: "origincoin" },
+        { nome: "LUCKY COIN", spawn: "luckycoin" },
+        { nome: "RESET DE APARÊNCIA", spawn: "resetaparencia" },
+        { nome: "DISTINTIVO DE POLÍCIA", spawn: "copbadge" },
+        { nome: "FAIXA POLICIAL", spawn: "faixapolicial" },
+        { nome: "MUN. PARAQUEDAS", spawn: "wammo|GADGET_PARACHUTE" },
+        { nome: "MUNIÇÃO GALÃO", spawn: "PETROLCAN_AMMO" }
     ]
 };
 
@@ -894,28 +730,23 @@ let itensAdicionados = [];
 let historico = [];
 let todosItens = [];
 
-// Criar lista de todos os itens ao carregar
 function criarListaTodosItens() {
+    const seenSpawns = new Set();
     todosItens = [];
     for (let categoria in categorias) {
         categorias[categoria].forEach((item, index) => {
-            todosItens.push({
-                nome: item.nome,
-                spawn: item.spawn,
-                categoria: categoria,
-                index: index
-            });
+            const key = item.spawn + '|' + item.nome;
+            if (!seenSpawns.has(key)) {
+                seenSpawns.add(key);
+                todosItens.push({ nome: item.nome, spawn: item.spawn, categoria: categoria, index: index });
+            }
         });
     }
 }
 
-// ============= FUNÇÕES DAS ABAS =============
 function trocarAba(aba) {
-    // Remover classe active de todos os botões e conteúdos
     document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-    
-    // Adicionar classe active na aba selecionada
     if (aba === 'solicitacao') {
         document.querySelector('.tab-button:nth-child(1)').classList.add('active');
         document.getElementById('tab-solicitacao').classList.add('active');
@@ -925,47 +756,25 @@ function trocarAba(aba) {
     }
 }
 
-// ============= FUNÇÕES DE CONSULTA DE SPAWN =============
 function consultarSpawn() {
     const termo = document.getElementById('inputConsultaSpawn').value.trim().toLowerCase();
     const resultBox = document.getElementById('spawnResultBox');
     const resultContent = document.getElementById('spawnResultContent');
-    
-    // Limpar seleção de categoria ao pesquisar
     document.getElementById('selectConsultaCategoria').value = '';
-    
-    if (termo.length < 2) {
-        resultBox.classList.remove('show');
-        return;
-    }
-    
-    // Filtrar itens que contenham o termo de busca
-    const itensFiltrados = todosItens.filter(item => 
-        item.nome.toLowerCase().includes(termo)
-    );
-    
+    if (termo.length < 2) { resultBox.classList.remove('show'); return; }
+    const itensFiltrados = todosItens.filter(item => item.nome.toLowerCase().includes(termo));
     if (itensFiltrados.length === 0) {
         resultContent.innerHTML = '<div class="empty-itens">❌ Nenhum item encontrado</div>';
         resultBox.classList.add('show');
         return;
     }
-    
-    // Mostrar resultados
     resultContent.innerHTML = '';
     itensFiltrados.forEach(item => {
         const div = document.createElement('div');
         div.className = 'spawn-result-item';
-        div.innerHTML = `
-            <div class="spawn-result-nome">${item.nome}</div>
-            <div class="spawn-result-categoria">📁 ${getNomeCategoria(item.categoria)}</div>
-            <div class="spawn-result-comando" onclick="copiarSpawnDireto('${item.spawn}')" title="Clique para copiar">
-                ${item.spawn}
-            </div>
-            <button class="btn-copiar-spawn" onclick="copiarSpawnDireto('${item.spawn}')">📋 Copiar Spawn</button>
-        `;
+        div.innerHTML = `<div class="spawn-result-nome">${item.nome}</div><div class="spawn-result-categoria">📁 ${getNomeCategoria(item.categoria)}</div><div class="spawn-result-comando" onclick="copiarSpawnDireto('${item.spawn}')" title="Clique para copiar">${item.spawn}</div><button class="btn-copiar-spawn" onclick="copiarSpawnDireto('${item.spawn}')">📋 Copiar Spawn</button>`;
         resultContent.appendChild(div);
     });
-    
     resultBox.classList.add('show');
 }
 
@@ -973,96 +782,50 @@ function consultarPorCategoria() {
     const categoria = document.getElementById('selectConsultaCategoria').value;
     const resultBox = document.getElementById('spawnResultBox');
     const resultContent = document.getElementById('spawnResultContent');
-    
-    // Limpar campo de pesquisa ao selecionar categoria
     document.getElementById('inputConsultaSpawn').value = '';
-    
-    if (!categoria) {
-        resultBox.classList.remove('show');
-        return;
-    }
-    
-    // Filtrar itens da categoria selecionada ou todos
-    let itensFiltrados;
-    if (categoria === 'todos') {
-        itensFiltrados = todosItens;
-    } else {
-        itensFiltrados = todosItens.filter(item => item.categoria === categoria);
-    }
-    
-    // Mostrar resultados
+    if (!categoria) { resultBox.classList.remove('show'); return; }
+    let itensFiltrados = categoria === 'todos' ? todosItens : todosItens.filter(item => item.categoria === categoria);
     resultContent.innerHTML = '';
     itensFiltrados.forEach(item => {
         const div = document.createElement('div');
         div.className = 'spawn-result-item';
-        div.innerHTML = `
-            <div class="spawn-result-nome">${item.nome}</div>
-            <div class="spawn-result-categoria">📁 ${getNomeCategoria(item.categoria)}</div>
-            <div class="spawn-result-comando" onclick="copiarSpawnDireto('${item.spawn}')" title="Clique para copiar">
-                ${item.spawn}
-            </div>
-            <button class="btn-copiar-spawn" onclick="copiarSpawnDireto('${item.spawn}')">📋 Copiar Spawn</button>
-        `;
+        div.innerHTML = `<div class="spawn-result-nome">${item.nome}</div><div class="spawn-result-categoria">📁 ${getNomeCategoria(item.categoria)}</div><div class="spawn-result-comando" onclick="copiarSpawnDireto('${item.spawn}')" title="Clique para copiar">${item.spawn}</div><button class="btn-copiar-spawn" onclick="copiarSpawnDireto('${item.spawn}')">📋 Copiar Spawn</button>`;
         resultContent.appendChild(div);
     });
-    
     resultBox.classList.add('show');
 }
 
 function copiarSpawnDireto(spawn) {
-    navigator.clipboard.writeText(spawn).then(() => {
-        // Copiado silenciosamente
-    });
+    navigator.clipboard.writeText(spawn);
 }
 
 function getNomeCategoria(categoria) {
     const nomes = {
-        'armas_brancas': 'Armas Brancas',
-        'armas_policia': 'Polícia',
-        'armas_bandidos': 'Bandidos',
-        'armas_extras': 'Extras',
-        'lojinha': 'Lojinha',
-        'fabricacao': 'Fabricação',
-        'drogas': 'Drogas',
-        'diversos': 'Diversos',
-        'municoes': 'Munições'
+        'armas_brancas': 'Armas Brancas', 'armas_policia': 'Polícia', 'armas_bandidos': 'Bandidos',
+        'armas_extras': 'Extras', 'lojinha': 'Lojinha', 'fabricacao': 'Fabricação',
+        'drogas': 'Drogas', 'diversos': 'Diversos', 'municoes': 'Munições',
+        'animais': 'Animais', 'pesca': 'Pesca', 'pets': 'Pets',
+        'tickets': 'Tickets/VIPs', 'veiculos_mods': 'Mods de Veículo',
+        'joias': 'Joias e Gemas', 'especiais': 'Itens Especiais'
     };
     return nomes[categoria] || categoria;
 }
 
-// ============= FUNÇÕES ORIGINAIS DO FORMULÁRIO =============
 function pesquisarItem() {
     const termo = document.getElementById('inputPesquisa').value.trim().toLowerCase();
     const selectItem = document.getElementById('selectItem');
-    
     selectItem.innerHTML = '<option value="">-- Selecione um item --</option>';
-    
     if (termo.length < 2) {
-        // Se pesquisa vazia ou muito curta, mostrar itens da categoria selecionada
         const categoria = document.getElementById('selectCategoria').value;
-        if (categoria) {
-            carregarItens();
-        }
+        if (categoria) carregarItens();
         return;
     }
-    
-    // Limpar seleção de categoria ao pesquisar
     document.getElementById('selectCategoria').value = '';
-    
-    // Filtrar itens que contenham o termo de busca
-    const itensFiltrados = todosItens.filter(item => 
-        item.nome.toLowerCase().includes(termo)
-    );
-    
+    const itensFiltrados = todosItens.filter(item => item.nome.toLowerCase().includes(termo));
     if (itensFiltrados.length === 0) {
-        const option = document.createElement('option');
-        option.value = '';
-        option.textContent = '-- Nenhum item encontrado --';
-        selectItem.appendChild(option);
+        selectItem.innerHTML = '<option value="">-- Nenhum item encontrado --</option>';
         return;
     }
-    
-    // Adicionar itens encontrados
     itensFiltrados.forEach(item => {
         const option = document.createElement('option');
         option.value = `${item.categoria}|${item.index}`;
@@ -1074,14 +837,9 @@ function pesquisarItem() {
 function carregarItens() {
     const categoria = document.getElementById('selectCategoria').value;
     const selectItem = document.getElementById('selectItem');
-    
-    // Limpar campo de pesquisa ao selecionar categoria
     document.getElementById('inputPesquisa').value = '';
-    
     selectItem.innerHTML = '<option value="">-- Selecione um item --</option>';
-    
     if (categoria === 'todos') {
-        // Carregar todos os itens de todas as categorias
         todosItens.forEach(item => {
             const option = document.createElement('option');
             option.value = `${item.categoria}|${item.index}`;
@@ -1101,24 +859,11 @@ function carregarItens() {
 function adicionarItem() {
     const itemValue = document.getElementById('selectItem').value;
     const quantidade = parseInt(document.getElementById('inputQuantidade').value) || 1;
-    
-    if (!itemValue || itemValue === '') {
-        alert('⚠️ Selecione um item!');
-        return;
-    }
-    
-    // Parse do valor (formato: "categoria|index")
+    if (!itemValue || itemValue === '') { alert('⚠️ Selecione um item!'); return; }
     const [categoria, indexStr] = itemValue.split('|');
     const itemIndex = parseInt(indexStr);
-    
     const item = categorias[categoria][itemIndex];
-    
-    itensAdicionados.push({
-        nome: item.nome,
-        spawn: item.spawn,
-        quantidade: quantidade
-    });
-    
+    itensAdicionados.push({ nome: item.nome, spawn: item.spawn, quantidade: quantidade });
     atualizarListaItens();
     document.getElementById('inputQuantidade').value = 1;
     verificarBotaoGerar();
@@ -1133,24 +878,13 @@ function removerItem(index) {
 function atualizarListaItens() {
     const lista = document.getElementById('listaItens');
     const empty = document.getElementById('emptyItens');
-    
-    if (itensAdicionados.length === 0) {
-        empty.style.display = 'block';
-        lista.innerHTML = '';
-        return;
-    }
-    
+    if (itensAdicionados.length === 0) { empty.style.display = 'block'; lista.innerHTML = ''; return; }
     empty.style.display = 'none';
     lista.innerHTML = '';
-    
     itensAdicionados.forEach((item, index) => {
         const tag = document.createElement('div');
         tag.className = 'item-tag';
-        tag.innerHTML = `
-            <span class="item-tag-nome">${item.nome}</span>
-            <span class="item-tag-qtd">x${item.quantidade}</span>
-            <button class="item-tag-remove" onclick="removerItem(${index})">×</button>
-        `;
+        tag.innerHTML = `<span class="item-tag-nome">${item.nome}</span><span class="item-tag-qtd">x${item.quantidade}</span><button class="item-tag-remove" onclick="removerItem(${index})">×</button>`;
         lista.appendChild(tag);
     });
 }
@@ -1158,33 +892,18 @@ function atualizarListaItens() {
 function verificarBotaoGerar() {
     const playerId = document.getElementById('inputPlayerId').value.trim();
     const motivo = document.getElementById('inputMotivo').value.trim();
-    const btn = document.getElementById('btnGerar');
-    
-    btn.disabled = !playerId || !motivo || itensAdicionados.length === 0;
+    document.getElementById('btnGerar').disabled = !playerId || !motivo || itensAdicionados.length === 0;
 }
 
 function gerarSolicitacao() {
     const playerId = document.getElementById('inputPlayerId').value.trim();
     const motivo = document.getElementById('inputMotivo').value.trim();
-    
     if (!playerId || !motivo || itensAdicionados.length === 0) return;
-    
-    let itensTexto = itensAdicionados.map(item => 
-        `${item.quantidade} ${item.nome}`
-    ).join(', ');
-    
-    const textoSolicitacao = `SOLICITAÇÃO DE DEVOLUÇÃO
-ID: ${playerId}
-Motivo: ${motivo}
-Itens: ${itensTexto}
-Provas:
-<@&1362168080716927133>`;
-    
+    let itensTexto = itensAdicionados.map(item => `${item.quantidade} ${item.nome}`).join(', ');
+    const textoSolicitacao = `SOLICITAÇÃO DE DEVOLUÇÃO\nID: ${playerId}\nMotivo: ${motivo}\nItens: ${itensTexto}\nProvas:\n<@&1362168080716927133>`;
     document.getElementById('solicitacaoTexto').textContent = textoSolicitacao;
-    
     const comandosLista = document.getElementById('comandosLista');
     comandosLista.innerHTML = '';
-    
     itensAdicionados.forEach((item, index) => {
         const div = document.createElement('div');
         div.className = 'comando-item';
@@ -1193,51 +912,28 @@ Provas:
         div.title = 'Clique para copiar este comando';
         comandosLista.appendChild(div);
     });
-    
-    historico.unshift({
-        playerId: playerId,
-        motivo: motivo,
-        itens: [...itensAdicionados],
-        timestamp: new Date()
-    });
-    
-    if (historico.length > 10) {
-        historico = historico.slice(0, 10);
-    }
-    
+    historico.unshift({ playerId, motivo, itens: [...itensAdicionados], timestamp: new Date() });
+    if (historico.length > 10) historico = historico.slice(0, 10);
     salvarHistorico();
     atualizarHistorico();
-    
     document.getElementById('resultBox').classList.add('show');
     document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function copiarSolicitacao() {
-    const texto = document.getElementById('solicitacaoTexto').textContent;
-    navigator.clipboard.writeText(texto).then(() => {
-        // Copiado silenciosamente
-    });
+    navigator.clipboard.writeText(document.getElementById('solicitacaoTexto').textContent);
 }
 
 function copiarComando(index) {
     const playerId = document.getElementById('inputPlayerId').value.trim();
     const item = itensAdicionados[index];
-    const comando = `solicitar ${playerId} ${item.spawn} ${item.quantidade}`;
-    
-    navigator.clipboard.writeText(comando).then(() => {
-        // Copiado silenciosamente
-    });
+    navigator.clipboard.writeText(`solicitar ${playerId} ${item.spawn} ${item.quantidade}`);
 }
 
 function copiarTodosComandos() {
     const playerId = document.getElementById('inputPlayerId').value.trim();
-    const comandos = itensAdicionados.map(item => 
-        `solicitar ${playerId} ${item.spawn} ${item.quantidade}`
-    ).join(' ; ');
-    
-    navigator.clipboard.writeText(comandos).then(() => {
-        // Copiado silenciosamente
-    });
+    const comandos = itensAdicionados.map(item => `solicitar ${playerId} ${item.spawn} ${item.quantidade}`).join(' ; ');
+    navigator.clipboard.writeText(comandos);
 }
 
 function novaSolicitacao() {
@@ -1259,85 +955,43 @@ function editarSolicitacao() {
 }
 
 function formatarDataHora(data) {
-    const dia = String(data.getDate()).padStart(2, '0');
-    const mes = String(data.getMonth() + 1).padStart(2, '0');
-    const ano = data.getFullYear();
-    const hora = String(data.getHours()).padStart(2, '0');
-    const minuto = String(data.getMinutes()).padStart(2, '0');
-    
-    return `${dia}/${mes}/${ano} às ${hora}:${minuto}`;
+    return `${String(data.getDate()).padStart(2,'0')}/${String(data.getMonth()+1).padStart(2,'0')}/${data.getFullYear()} às ${String(data.getHours()).padStart(2,'0')}:${String(data.getMinutes()).padStart(2,'0')}`;
 }
 
 function carregarSolicitacao(index) {
     const item = historico[index];
     if (!item) return;
-    
     document.getElementById('inputPlayerId').value = item.playerId;
     document.getElementById('inputMotivo').value = item.motivo;
     itensAdicionados = [...item.itens];
     atualizarListaItens();
     verificarBotaoGerar();
-    
-    // Trocar para a aba de solicitação
     trocarAba('solicitacao');
-    
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function atualizarHistorico() {
     const lista = document.getElementById('historicoLista');
-    
-    if (historico.length === 0) {
-        lista.innerHTML = '<div class="empty-itens">Nenhuma solicitação realizada ainda</div>';
-        return;
-    }
-    
+    if (historico.length === 0) { lista.innerHTML = '<div class="empty-itens">Nenhuma solicitação realizada ainda</div>'; return; }
     lista.innerHTML = '';
-    
     historico.forEach((item, index) => {
         const div = document.createElement('div');
         div.className = 'historico-item';
-        
-        const itensHtml = item.itens.map(i => 
-            `<span class="historico-item-tag">${i.nome} x${i.quantidade}</span>`
-        ).join('');
-        
-        div.innerHTML = `
-            <div class="historico-item-header">
-                <span class="historico-item-id">ID: ${item.playerId}</span>
-                <span class="historico-item-data">📅 ${formatarDataHora(item.timestamp)}</span>
-            </div>
-            <div class="historico-item-motivo">📝 Motivo:  ${item.motivo}</div>
-            <div class="historico-item-itens">${itensHtml}</div>
-            <button class="btn-carregar-historico" onclick="carregarSolicitacao(${index})">📂 Carregar Solicitação</button>
-        `;
-        
+        const itensHtml = item.itens.map(i => `<span class="historico-item-tag">${i.nome} x${i.quantidade}</span>`).join('');
+        div.innerHTML = `<div class="historico-item-header"><span class="historico-item-id">ID: ${item.playerId}</span><span class="historico-item-data">📅 ${formatarDataHora(item.timestamp)}</span></div><div class="historico-item-motivo">📝 Motivo: ${item.motivo}</div><div class="historico-item-itens">${itensHtml}</div><button class="btn-carregar-historico" onclick="carregarSolicitacao(${index})">📂 Carregar Solicitação</button>`;
         lista.appendChild(div);
     });
 }
 
 function salvarHistorico() {
-    try {
-        localStorage.setItem('nexus_historico', JSON.stringify(historico));
-    } catch (e) {
-        console.error('Erro ao salvar histórico:', e);
-    }
+    try { localStorage.setItem('nexus_historico', JSON.stringify(historico)); } catch(e) {}
 }
 
 function carregarHistoricoStorage() {
     try {
         const dados = localStorage.getItem('nexus_historico');
-        if (dados) {
-            historico = JSON.parse(dados);
-            historico = historico.map(item => ({
-                ...item,
-                timestamp: new Date(item.timestamp)
-            }));
-        }
-    } catch (e) {
-        console.error('Erro ao carregar histórico:', e);
-        historico = [];
-    }
+        if (dados) { historico = JSON.parse(dados).map(item => ({...item, timestamp: new Date(item.timestamp)})); }
+    } catch(e) { historico = []; }
 }
 
 function limparHistorico() {
@@ -1348,20 +1002,15 @@ function limparHistorico() {
     }
 }
 
-// Event listeners
 document.getElementById('inputPlayerId').addEventListener('input', verificarBotaoGerar);
 document.getElementById('inputMotivo').addEventListener('input', verificarBotaoGerar);
 
-// Inicialização
 window.onload = function() {
     criarListaTodosItens();
     carregarHistoricoStorage();
     atualizarHistorico();
-    
-    // Adicionar evento de pesquisa
     document.getElementById('inputPesquisa').addEventListener('input', pesquisarItem);
 };
 </script>
-
 </body>
 </html>
