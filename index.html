@@ -242,7 +242,6 @@ const categorias = {
         { nome: "FAIXA POLICIAL", spawn: "faixapolicial" },
         { nome: "DISTINTIVO DE POLÍCIA", spawn: "copbadge" },
         { nome: "ALGEMA", spawn: "algema" },
-        { nome: "K9", spawn: "k9" },
         { nome: "EVIDÊNCIA POLICIAL", spawn: "evidenciapolicial" }
     ],
     armas_bandidos: [
@@ -327,6 +326,7 @@ const categorias = {
         { nome: "TEQUILA", spawn: "tequila" },
         { nome: "LANCHE", spawn: "lanche" },
         { nome: "LARANJA", spawn: "laranja" },
+        { nome: "NEXUS WATCH", spawn: "nexuswatch" },
         { nome: "TOMATE", spawn: "tomate" }
     ],
     fabricacao: [
@@ -378,7 +378,7 @@ const categorias = {
         { nome: "MOTOR", spawn: "motor" },
         { nome: "PNEUS", spawn: "pneus" },
         { nome: "MUAMBA", spawn: "muamba" },
-        { nome: "KIT HIDROPÔNICO", spawn: "hidroponico" }
+        { nome: "HIDROPÔNICO", spawn: "hidroponico" }
     ],
     drogas: [
         { nome: "MENTOL", spawn: "mentol" },
@@ -408,9 +408,11 @@ const categorias = {
         { nome: "THC", spawn: "thc" },
         { nome: "CRACK", spawn: "crack" },
         { nome: "COMPOSTO PREMIUM", spawn: "compositoalta" },
-        { nome: "PASTA PREMIUM", spawn: "pastaalta" }
+        { nome: "PASTA PREMIUM", spawn: "pastaalta" },
+        { nome: "K9", spawn: "k9" }
     ],
     diversos: [
+        { nome: "FORTRESS", spawn: "fortress" },
         { nome: "C4", spawn: "c4" },
         { nome: "KEYCARD", spawn: "keycard" },
         { nome: "PEN DRIVE", spawn: "pendrive" },
@@ -592,11 +594,7 @@ const categorias = {
         { nome: "LOBO", spawn: "wolf" },
         { nome: "CAVALO COMPLETO", spawn: "fullhorse" },
         { nome: "CAVALO DE CORRIDA", spawn: "rangehorse" },
-        { nome: "CAVALO JOVEM", spawn: "younghorse" },
-        { nome: "KURAMA", spawn: "vyn_kuramacalda" },
-        { nome: "NARUTO MODO 6", spawn: "vyn_naruto6" },
-        { nome: "SASUKE MODO 6", spawn: "vyn_sasuke6" },
-        { nome: "SUSANOO", spawn: "vyn_susanoo" }
+        { nome: "CAVALO JOVEM", spawn: "younghorse" }
     ],
     pesca: [
         { nome: "VARA DE PESCA", spawn: "varadepesca" },
@@ -623,15 +621,15 @@ const categorias = {
         { nome: "REVIVER PET", spawn: "dogrevive" },
         { nome: "REVIVER PET PLUS", spawn: "dogreviveplus" },
         { nome: "BOLA PET", spawn: "dogtennis" },
-        { nome: "ÁGUA PET (2)", spawn: "dogwater" },
+        { nome: "ÁGUA PET", spawn: "dogwater" },
         { nome: "CURA PET", spawn: "pethealth" },
         { nome: "CURA PET MÉDIA", spawn: "pethealth2" },
         { nome: "CURA PET GRANDE", spawn: "pethealth3" },
         { nome: "CURA PET MÁXIMA", spawn: "pethealth4" },
-        { nome: "BOLA PET (2)", spawn: "petball" },
-        { nome: "RAÇÃO PET (2)", spawn: "petfood" },
+        { nome: "BOLA PET", spawn: "petball" },
+        { nome: "RAÇÃO PET", spawn: "petfood" },
         { nome: "CORDA PET", spawn: "petrope" },
-        { nome: "ÁGUA PET (3)", spawn: "petthirst" }
+        { nome: "ÁGUA PET", spawn: "petthirst" }
     ],
     tickets: [
         { nome: "TICKET DONATER", spawn: "tickcetdonater" },
@@ -652,9 +650,9 @@ const categorias = {
         { nome: "TICKET PLACA", spawn: "ticketplaca" },
         { nome: "TICKET TELEFONE", spawn: "ticketphone" },
         { nome: "TICKET ROLETA", spawn: "ticketroleta" },
-        { nome: "LUCKY COIN", spawn: "luckycoin" },
+        // { nome: "LUCKY COIN", spawn: "luckycoin" },
         { nome: "NEXUS COIN", spawn: "nexuscoin" },
-        { nome: "ORIGIN COIN", spawn: "origincoin" }
+        // { nome: "ORIGIN COIN", spawn: "origincoin" }
     ],
     veiculos_mods: [
         { nome: "KIT CAMBER", spawn: "kitcamber" },
@@ -695,8 +693,8 @@ const categorias = {
         { nome: "BRINCO ROUBADO", spawn: "brincoroubado" },
         { nome: "COLAR ROUBADO", spawn: "colarroubado" },
         { nome: "PULSEIRA ROUBADA", spawn: "pulseiraroubada" },
-        { nome: "RELÓGIO ROUBADO", spawn: "relogioroubado" },
-        { nome: "RELÓGIO NEXUS", spawn: "nexuswatch" }
+        { nome: "RELÓGIO ROUBADO", spawn: "relogioroubado" }
+
     ],
     especiais: [
         { nome: "CHAVE CAIXA AMETISTA", spawn: "chave_amethystbox" },
@@ -706,7 +704,6 @@ const categorias = {
         { nome: "CHAVE PORCO LENDÁRIO", spawn: "chave_legendpig" },
         { nome: "CHAVE CAIXA LUXUOSA", spawn: "chave_luxuriusbox" },
         { nome: "CHAVE CAIXA ROYAL", spawn: "chave_royalbox" },
-        { nome: "CAIXA FORTRESS", spawn: "fortress" },
         { nome: "CAIXA LESTER", spawn: "lester_box" },
         { nome: "CAIXA WESTGATE", spawn: "westgate" },
         { nome: "ASA DE NATAL", spawn: "wing_christmas2022" },
